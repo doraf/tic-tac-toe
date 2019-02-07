@@ -1,0 +1,111 @@
+/*html reset*/
+html, body{
+	padding: 0;
+	margin: 0;
+}
+
+/* Tic Tac Toe Board layout */
+.board{
+	margin: 20px auto;
+	width: 70vw;
+	height: 70vw;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.square{
+	width: 33.33333%;
+	height: 33.33333%;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.square:nth-of-type(3n+1), .square:nth-of-type(3n+2){
+	border-right: solid 1.75vw #ccc;
+}
+
+.square:nth-child(-n+6){
+	border-bottom: solid 1.75vw #ccc;
+}
+
+/* squares */
+.square:not(.played){
+	cursor: hand;
+}
+
+/* style X player */
+.player-x{
+	position: relative;
+	width: 11vw;
+	height: 11vw;
+}
+
+.player-x:before, .player-x:after{
+	position: absolute;
+	top: 0;
+	left: 4.25vw;
+	display: block;
+	content: '';
+	width: 2.5vw;
+	height: 11vw;
+	background-color: hotpink;
+}
+
+.player-x:before{
+	transform: rotate(45deg);
+}
+
+.player-x:after{
+	transform: rotate(-45deg);
+}
+
+/* open X */
+.open-x{
+	position: relative;
+	width: 11vw;
+	height: 11vw;
+}
+
+.open-x:before, .open-x:after{
+	position: absolute;
+	top: 0;
+	left: 4.25vw;
+	display: block;
+	content: '';
+	width: 2.5vw;
+	height: 11vw;
+	/*background-color: hotpink;*/
+}
+
+.open-x:before{
+	transform: rotate(45deg);
+}
+
+.open-x:after{
+	transform: rotate(-45deg);
+}
+
+.square:not(.played):hover .open-x:before, .square:not(.played):hover .open-x:after{
+	background-color: #eee;
+}
+
+/* style O player*/
+.player-o{
+	box-sizing: border-box;
+	height: 11vw;
+	width: 11vw;
+	border-radius: 5.5vw;
+	border: 2.5vw solid green;
+}
+
+/* open O*/
+
+.square:not(.played):hover .open-o{
+	box-sizing: border-box;
+	height: 11vw;
+	width: 11vw;
+	border-radius: 5.5vw;
+	border: 2.5vw solid #eee;
+}
