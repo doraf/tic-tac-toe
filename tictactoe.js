@@ -14,7 +14,7 @@ var squares = [].slice.call(square);
 
 // add an event listener for clicks on all game board squares
 for (var i = 0; i < squares.length; i++){
-	squares[i].addEventListener('click', playSquare(i))
+	squares[i].addEventListener('click', playSquare(i), {once : true})
 }
 
 // return a function to select a square on behalf of the player
@@ -24,21 +24,18 @@ function playSquare(playNum){
 			gameState[playNum] = playerTurn;
 
 			// update DOM to show X or O on the game board
-			event.currentTarget.classList.add('played')
+			this.classList.add('played')
 
 			if (playerTurn == 1){
 				// show X
-				event.currentTarget.firstChild.classList.add('player-x')
-				event.currentTarget.firstChild.classList.remove('open-x')
+				this.firstChild.classList.add('player-x')
+				this.firstChild.classList.remove('open-x')
 			} else {
 				// show O
-				event.currentTarget.firstChild.classList.add('player-o')
-				event.currentTarget.firstChild.classList.remove('open-o')
+				this.firstChild.classList.add('player-o')
+				this.firstChild.classList.remove('open-o')
 			}
 			
-			// This isn't working how I think it should be working yet BUG BUG
-			this.removeEventListener('click', playSquare)
-
 			// calculate if the most recent play wins the game
 			calcWin(playNum)
 
