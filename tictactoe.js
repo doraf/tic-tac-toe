@@ -41,10 +41,12 @@ function playSquare(playNum){
 			}
 			
 			// calculate if the most recent play wins the game
-			calcWin(playNum)
+			if (calcWin(playNum)){
 
-			// switch players
-			switchTurn()
+			} else {
+				// game continues, switch players
+				switchTurn()
+			}
 		}
 }
 
@@ -67,40 +69,42 @@ function switchTurn(){
 // Check to see if the most recent turn has won the game
 // lastPlayed is the index of the last played square in the game state array
 function calcWin(lastPlayed){
-	// check row for a win
-	checkRow(Math.floor(lastPlayed / 3))
-
-	// check column for a win
-	checkColumn(lastPlayed % 3)
+	var calcRow = Math.floor(lastPlayed / 3)
+	var calcCol = lastPlayed % 3
 
 	// check both diagonals if the player has played a square with an even index
 	if (lastPlayed % 2 == 0){
-		checkDiagonal()
+		return (checkDiagonal() || checkColumn(calcCol) || checkRow(calcRow))
+	} else {
+		return (checkColumn(calcCol) || checkRow(calcRow))
 	}
 }
 
 function checkRow(rowNum){
 	// Top row will equal 0, middle row 1, bottom row 2
-	checkWin(gameState[(rowNum*3)] + gameState[(rowNum*3)+1] + gameState[(rowNum*3)+2])
+	return (checkWin(gameState[(rowNum*3)] + gameState[(rowNum*3)+1] + gameState[(rowNum*3)+2]))
 }
 
 function checkColumn(rowNum){
 	// Left column will equal 0, middle collum 1, right column 2
-	checkWin(gameState[rowNum] + gameState[rowNum+3] + gameState[rowNum+6])
+	return (checkWin(gameState[rowNum] + gameState[rowNum+3] + gameState[rowNum+6]))
 }
 
 function checkDiagonal(){
-	// check the score of both diagonasl
-	checkWin(gameState[0] + gameState[4] + gameState[8])
-	checkWin(gameState[2] + gameState[4] + gameState[6])
+	// check the score of both diagonals
+	return (checkWin(gameState[0] + gameState[4] + gameState[8]) || checkWin(gameState[2] + gameState[4] + gameState[6]))
 }
 
-// console log if someone has won the game
+// return true if someone has wont the game
 function checkWin(score){
 	if (score == 3){
-		console.log('X has won!')
+		statusText.textContent = 'X has won!'
+		return true;
 	} else if (score == -3){
-		console.log('O has won!')
+		statusText.textContent = 'O has won!'
+		return true;
+	} else {
+		return false;
 	}
 }
 
