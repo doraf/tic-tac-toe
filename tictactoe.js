@@ -1,43 +1,59 @@
-// 1 is player x, -1 is player o
+
+
+// for the sake of callculating a win, player X has a value of 1 and play O has a value of -1. Start with player X
 var playerTurn = 1; 
+
+// each element corresponds to a place on the 3x3 game board, a value of 0 says that the square hasn't been played
 var gameState = [0,0,0,0,0,0,0,0,0]
+
+// grab static NodeList of elements representing squares on the game board
 var square = document.querySelectorAll('.square');
 
-//square is a nodelist, convert to array
+// convert NodeList to an array
 var squares = [].slice.call(square);
-console.log(squares)
 
-
+// add an event listener for clicks on all game board squares
 for (var i = 0; i < squares.length; i++){
 	squares[i].addEventListener('click', playSquare(i))
 }
 
+// return a function to select a square on behalf of the player
 function playSquare(playNum){
 		return function(event){
-			// console.log(playNum)
-			// update gameState
+			// update game state array to show that the space in play
 			gameState[playNum] = playerTurn;
 
-			// display x or o
+			// update DOM to show X or O on the game board
 			event.currentTarget.classList.add('played')
+
 			if (playerTurn == 1){
+				// show X
 				event.currentTarget.firstChild.classList.add('player-x')
 				event.currentTarget.firstChild.classList.remove('open-x')
 			} else {
+				// show O
 				event.currentTarget.firstChild.classList.add('player-o')
 				event.currentTarget.firstChild.classList.remove('open-o')
 			}
 			
+			// This isn't working how I think it should be working yet BUG BUG
 			this.removeEventListener('click', playSquare)
+
+			// calculate if the most recent play wins the game
 			calcWin(playNum)
+
+			// switch players
 			switchTurn()
 		}
 }
 
-
+// update game state to for next player
 function switchTurn(){
+
+	// update marker for the next player (X is 1, O is -1)
 	playerTurn *= -1;
-	// console.log(playerTurn)
+
+	// update DOM to reflect new player
 	for (var j = 0; j < squares.length; j++){
 		if (squares[j].className != 'square played'){
 			squares[j].firstChild.classList.toggle('open-x')
@@ -46,61 +62,38 @@ function switchTurn(){
 	}
 }
 
+// Check to see if the most recent turn has won the game
+// lastPlayed is the index of the last played square in the game state array
 function calcWin(lastPlayed){
-	// console.log('last played: ' + lastPlayed)
-
-	// check row
+	// check row for a win
 	checkRow(Math.floor(lastPlayed / 3))
 
-	// check column
+	// check column for a win
 	checkColumn(lastPlayed % 3)
 
-	// check diagonal
+	// check both diagonals if the player has played a square with an even index
 	if (lastPlayed % 2 == 0){
 		checkDiagonal()
 	}
 }
 
 function checkRow(rowNum){
-	// if (rowNum == 0){
-	// 	// top row
-	// 	console.log("top row")
-	// 	checkWin(gameState[0] + gameState[1] + gameState[2])
-	// } else if (rowNum == 1){
-	// 	//  middle row
-	// 	console.log("middle row")
-	// 	checkWin(gameState[3] + gameState[4] + gameState[5])
-	// } else {
-	// 	// bottom row
-	// 	console.log("bottom row")
-	// 	checkWin(gameState[6] + gameState[7] + gameState[8])
-	// }
+	// Top row will equal 0, middle row 1, bottom row 2
 	checkWin(gameState[(rowNum*3)] + gameState[(rowNum*3)+1] + gameState[(rowNum*3)+2])
 }
 
 function checkColumn(rowNum){
-	// if (rowNum == 0){
-	// 	// left column
-	// 	console.log("left column")
-	// 	checkWin(gameState[0] + gameState[3] + gameState[6])
-	// } else if (rowNum == 1){
-	// 	//  middle column
-	// 	console.log("middle column")
-	// 	checkWin(gameState[1] + gameState[4] + gameState[7])
-	// } else {
-	// 	// right column
-	// 	console.log("right column")
-	// 	checkWin(gameState[2] + gameState[5] + gameState[8])
-	// }
+	// Left column will equal 0, middle collum 1, right column 2
 	checkWin(gameState[rowNum] + gameState[rowNum+3] + gameState[rowNum+6])
 }
 
 function checkDiagonal(){
-	// console.log('diagonal')
+	// check the score of both diagonasl
 	checkWin(gameState[0] + gameState[4] + gameState[8])
 	checkWin(gameState[2] + gameState[4] + gameState[6])
 }
 
+// console log if someone has won the game
 function checkWin(score){
 	if (score == 3){
 		console.log('X has won!')
