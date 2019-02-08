@@ -2,6 +2,33 @@
 html, body{
 	padding: 0;
 	margin: 0;
+	font-family: sans-serif;
+}
+
+/* header */
+header{
+	color: #fff;
+	background-color: #2b303b;
+	padding: 7px 0 0 0;
+	text-align: center;
+}
+
+.status{
+	padding: 2px;
+	background-color: #4e5566;
+	color: rgba(255, 255, 255, .6);
+}
+
+.status h2{
+	font-weight: normal;
+}
+
+.status.x{
+	background-color: hotpink;
+}
+
+.status.o{
+	background-color: green;
 }
 
 /* Tic Tac Toe Board layout */
