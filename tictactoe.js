@@ -6,6 +6,10 @@ var playerTurn = 1;
 // each element corresponds to a place on the 3x3 game board, a value of 0 says that the square hasn't been played
 var gameState = [0,0,0,0,0,0,0,0,0]
 
+// the status bar shows the current state of the game
+var statusBar = document.querySelector('.status')
+var statusText = document.querySelector('.status h2')
+
 // grab static NodeList of elements representing squares on the game board
 var square = document.querySelectorAll('.square');
 
@@ -49,6 +53,7 @@ function switchTurn(){
 
 	// update marker for the next player (X is 1, O is -1)
 	playerTurn *= -1;
+	updateStatusBar()
 
 	// update DOM to reflect new player
 	for (var j = 0; j < squares.length; j++){
@@ -96,5 +101,22 @@ function checkWin(score){
 		console.log('X has won!')
 	} else if (score == -3){
 		console.log('O has won!')
+	}
+}
+
+// STATUS BAR
+initStatusBar()
+function initStatusBar(){
+	statusBar.classList.toggle('x')
+	statusText.textContent = "X's turn"
+}
+
+function updateStatusBar(){
+	statusBar.classList.toggle('x')
+	statusBar.classList.toggle('o')
+	if (playerTurn == 1) {
+		statusText.textContent = "X's turn"
+	} else if (playerTurn == -1){
+		statusText.textContent = "O's turn"
 	}
 }
