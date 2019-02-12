@@ -54,10 +54,14 @@ function playSquare(playNum){
 			
 			// calculate if the most recent play wins the game
 			if (calcWin(playNum)){
+				// game has been won by one of the players
 				endGame()
-			} else {
+			} else if (gameState.includes(0)){
 				// game continues, switch players
 				switchTurn()
+			} else {
+				// game is a draw
+				console.log('DRAW!')
 			}
 		}
 }
