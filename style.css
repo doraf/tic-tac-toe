@@ -16,7 +16,7 @@ header{
 .status{
 	padding: 2px;
 	background-color: #4e5566;
-	color: rgba(255, 255, 255, .6);
+	color: rgba(255, 255, 255, .9);
 }
 
 .status h2{
@@ -58,7 +58,7 @@ header{
 }
 
 /* squares */
-.square:not(.played){
+:not(.over)>.square:not(.played){
 	cursor: hand;
 }
 
@@ -88,6 +88,10 @@ header{
 	transform: rotate(-45deg);
 }
 
+.o-won .player-x:before, .o-won .player-x:after{
+	background-color: #ccc;
+}
+
 /* open X */
 .open-x{
 	position: relative;
@@ -103,7 +107,6 @@ header{
 	content: '';
 	width: 2.5vw;
 	height: 11vw;
-	/*background-color: hotpink;*/
 }
 
 .open-x:before{
@@ -114,7 +117,8 @@ header{
 	transform: rotate(-45deg);
 }
 
-.square:not(.played):hover .open-x:before, .square:not(.played):hover .open-x:after{
+:not(.over)>.square:not(.played):hover .open-x:before, 
+:not(.over)>.square:not(.played):hover .open-x:after{
 	background-color: #eee;
 }
 
@@ -127,9 +131,12 @@ header{
 	border: 2.5vw solid green;
 }
 
+.x-won .player-o{
+	border: 2.5vw solid #ccc;
+}
 /* open O*/
 
-.square:not(.played):hover .open-o{
+:not(.over)>.square:not(.played):hover .open-o{
 	box-sizing: border-box;
 	height: 11vw;
 	width: 11vw;

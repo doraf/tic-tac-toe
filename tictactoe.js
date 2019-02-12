@@ -25,6 +25,9 @@ function endGame(){
 	for (var k = 0; k < squares.length; k++){
 		squares[k].removeEventListener('click', squareCallback[k], {once : true})
 	}
+
+	// update DOM to trigger proper endgame state
+	document.querySelector('.board').classList.add('over')
 	console.log('game over')
 }
 
@@ -39,10 +42,12 @@ function playSquare(playNum){
 
 			if (playerTurn == 1){
 				// show X
+				this.classList.add('played-x')
 				this.firstChild.classList.add('player-x')
 				this.firstChild.classList.remove('open-x')
 			} else {
 				// show O
+				this.classList.add('played-o')
 				this.firstChild.classList.add('player-o')
 				this.firstChild.classList.remove('open-o')
 			}
@@ -61,7 +66,6 @@ function playSquare(playNum){
 for (var i = 0; i < squares.length; i++){
 	squareCallback[i] = playSquare(i)
 	squares[i].addEventListener('click', squareCallback[i], {once : true})
-	// console.log(squareCallback)
 }
 
 // update game state to for next player
@@ -109,13 +113,15 @@ function checkDiagonal(){
 	return (checkWin(gameState[0] + gameState[4] + gameState[8]) || checkWin(gameState[2] + gameState[4] + gameState[6]))
 }
 
-// return true if someone has wont the game
+// return true if someone has won the game
 function checkWin(score){
 	if (score == 3){
 		statusText.textContent = 'X has won!'
+		document.querySelector('.board').classList.add('x-won')
 		return true;
 	} else if (score == -3){
 		statusText.textContent = 'O has won!'
+		document.querySelector('.board').classList.add('o-won')
 		return true;
 	} else {
 		return false;
