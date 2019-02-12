@@ -16,9 +16,16 @@ var square = document.querySelectorAll('.square');
 // convert NodeList to an array
 var squares = [].slice.call(square);
 
-// add an event listener for clicks on all game board squares
-for (var i = 0; i < squares.length; i++){
-	squares[i].addEventListener('click', playSquare(i), {once : true})
+// store callback fuction for each square for removing event listeners
+var squareCallback = [];
+
+
+// END GAME
+function endGame(){
+	for (var k = 0; k < squares.length; k++){
+		squares[k].removeEventListener('click', squareCallback[k], {once : true})
+	}
+	console.log('game over')
 }
 
 // return a function to select a square on behalf of the player
@@ -42,12 +49,19 @@ function playSquare(playNum){
 			
 			// calculate if the most recent play wins the game
 			if (calcWin(playNum)){
-
+				endGame()
 			} else {
 				// game continues, switch players
 				switchTurn()
 			}
 		}
+}
+
+// add an event listener for clicks on all game board squares
+for (var i = 0; i < squares.length; i++){
+	squareCallback[i] = playSquare(i)
+	squares[i].addEventListener('click', squareCallback[i], {once : true})
+	// console.log(squareCallback)
 }
 
 // update game state to for next player
@@ -124,3 +138,5 @@ function updateStatusBar(){
 		statusText.textContent = "O's turn"
 	}
 }
+
+
