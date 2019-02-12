@@ -28,7 +28,15 @@ function endGame(){
 
 	// update DOM to trigger proper endgame state
 	document.querySelector('.board').classList.add('over')
-	console.log('game over')
+}
+
+// Provide Feedback that the game is a draw
+function drawGame(){
+	document.querySelector('.board').classList.add('draw')
+	statusBar.classList.add('draw')
+	statusBar.classList.remove('x')
+	statusBar.classList.remove('o')
+	statusText.textContent = 'Game is a Draw'
 }
 
 // return a function to select a square on behalf of the player
@@ -61,6 +69,7 @@ function playSquare(playNum){
 				switchTurn()
 			} else {
 				// game is a draw
+				drawGame()
 				console.log('DRAW!')
 			}
 		}

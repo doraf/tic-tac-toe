@@ -78,6 +78,7 @@ header{
 	width: 2.5vw;
 	height: 11vw;
 	background-color: hotpink;
+	transition: all .2s ease-in;
 }
 
 .player-x:before{
@@ -88,7 +89,8 @@ header{
 	transform: rotate(-45deg);
 }
 
-.o-won .player-x:before, .o-won .player-x:after{
+.o-won .player-x:before, .o-won .player-x:after,
+.draw .player-x:before, .draw .player-x:after{
 	background-color: #ccc;
 }
 
@@ -129,9 +131,11 @@ header{
 	width: 11vw;
 	border-radius: 5.5vw;
 	border: 2.5vw solid green;
+	transition: border .2s ease-in;
 }
 
-.x-won .player-o{
+.x-won .player-o, 
+.draw .player-o{
 	border: 2.5vw solid #ccc;
 }
 /* open O*/
