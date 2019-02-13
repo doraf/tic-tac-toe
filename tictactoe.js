@@ -51,6 +51,10 @@ function initGame(){
 	board.classList.remove('o-won')
 	board.classList.remove('x-won')
 
+	// set proper classes on status bar
+	statusBar.classList.remove('x')
+	statusBar.classList.remove('o')
+
 	// remove all played, played-o, played-x
 	squares.forEach(function(square){
 		console.log(square)
@@ -72,7 +76,6 @@ function initGame(){
 
 	// init status bar
 	initStatusBar()
-	console.log(gameState)
 }
 
 // return a function to select a square on behalf of the player
