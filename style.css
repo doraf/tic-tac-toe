@@ -78,7 +78,7 @@ header{
 	width: 2.5vw;
 	height: 11vw;
 	background-color: hotpink;
-	transition: all .2s ease-in;
+	transition: background-color .2s ease-in;
 }
 
 .player-x:before{
@@ -131,7 +131,7 @@ header{
 	width: 11vw;
 	border-radius: 5.5vw;
 	border: 2.5vw solid green;
-	transition: border .2s ease-in;
+	transition: border-color .2s ease-in;
 }
 
 .x-won .player-o, 

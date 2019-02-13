@@ -4,11 +4,12 @@
 var playerTurn = 1; 
 
 // each element corresponds to a place on the 3x3 game board, a value of 0 says that the square hasn't been played
-var gameState = [0,0,0,0,0,0,0,0,0]
+var gameState = []
 
 // the status bar shows the current state of the game
 var statusBar = document.querySelector('.status')
 var statusText = document.querySelector('.status h2')
+var board = document.querySelector('.board')
 
 // grab static NodeList of elements representing squares on the game board
 var square = document.querySelectorAll('.square');
@@ -27,16 +28,51 @@ function endGame(){
 	}
 
 	// update DOM to trigger proper endgame state
-	document.querySelector('.board').classList.add('over')
+	board.classList.add('over')
 }
 
 // Provide Feedback that the game is a draw
 function drawGame(){
-	document.querySelector('.board').classList.add('draw')
+	board.classList.add('draw')
 	statusBar.classList.add('draw')
 	statusBar.classList.remove('x')
 	statusBar.classList.remove('o')
 	statusText.textContent = 'Game is a Draw'
+}
+
+// initialize the game board
+function initGame(){
+	gameState = [0,0,0,0,0,0,0,0,0]
+	playerTurn = 1;
+
+	// remove win class on board
+	board.classList.remove('draw')
+	board.classList.remove('over')
+	board.classList.remove('o-won')
+	board.classList.remove('x-won')
+
+	// remove all played, played-o, played-x
+	squares.forEach(function(square){
+		console.log(square)
+		square.classList.remove('played')
+		square.classList.remove('played-x')
+		square.firstChild.classList.add('open-x')
+		square.firstChild.classList.remove('player-x')
+
+		square.classList.remove('played-o')
+		square.firstChild.classList.remove('open-o')
+		square.firstChild.classList.remove('player-o')
+	})
+
+	// add event listeners
+	for (var i = 0; i < squares.length; i++){
+		squareCallback[i] = playSquare(i)
+		squares[i].addEventListener('click', squareCallback[i], {once : true})
+	}
+
+	// init status bar
+	initStatusBar()
+	console.log(gameState)
 }
 
 // return a function to select a square on behalf of the player
@@ -64,21 +100,16 @@ function playSquare(playNum){
 			if (calcWin(playNum)){
 				// game has been won by one of the players
 				endGame()
+				initGame()
 			} else if (gameState.includes(0)){
 				// game continues, switch players
 				switchTurn()
 			} else {
 				// game is a draw
 				drawGame()
-				console.log('DRAW!')
+				initGame()
 			}
 		}
-}
-
-// add an event listener for clicks on all game board squares
-for (var i = 0; i < squares.length; i++){
-	squareCallback[i] = playSquare(i)
-	squares[i].addEventListener('click', squareCallback[i], {once : true})
 }
 
 // update game state to for next player
@@ -130,11 +161,11 @@ function checkDiagonal(){
 function checkWin(score){
 	if (score == 3){
 		statusText.textContent = 'X has won!'
-		document.querySelector('.board').classList.add('x-won')
+		board.classList.add('x-won')
 		return true;
 	} else if (score == -3){
 		statusText.textContent = 'O has won!'
-		document.querySelector('.board').classList.add('o-won')
+		board.classList.add('o-won')
 		return true;
 	} else {
 		return false;
@@ -142,7 +173,6 @@ function checkWin(score){
 }
 
 // STATUS BAR
-initStatusBar()
 function initStatusBar(){
 	statusBar.classList.toggle('x')
 	statusText.textContent = "X's turn"
@@ -157,5 +187,15 @@ function updateStatusBar(){
 		statusText.textContent = "O's turn"
 	}
 }
+
+// add an event listener for clicks on all game board squares
+// for (var i = 0; i < squares.length; i++){
+// 	squareCallback[i] = playSquare(i)
+// 	squares[i].addEventListener('click', squareCallback[i], {once : true})
+// }
+
+// initStatusBar()
+
+initGame()
 
 
