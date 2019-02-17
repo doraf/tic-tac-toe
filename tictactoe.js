@@ -106,6 +106,15 @@ function playSquare(playNum){
 			// calculate if the most recent play wins the game
 			if (calcWin(playNum)){
 				// game has been won by one of the players
+				if (playerTurn == 1){
+					// X has won the game
+					statusText.textContent = 'X has won!'
+					board.classList.add('x-won')
+				} else {
+					// O has won the game
+					statusText.textContent = 'O has won!'
+					board.classList.add('o-won')
+				}
 				endGame()
 				setTimeout(() => {initGame()}, 1500)
 			} else if (gameState.includes(0)){
@@ -192,15 +201,14 @@ function checkDiagonal(){
 // return true if someone has won the game
 function checkWin(score){
 	if (score == 3){
-		statusText.textContent = 'X has won!'
-		board.classList.add('x-won')
-		return true;
+		// X has won the game
+		return 1;
 	} else if (score == -3){
-		statusText.textContent = 'O has won!'
-		board.classList.add('o-won')
-		return true;
+		// O has won the game
+		return -1;
 	} else {
-		return false;
+		// no one has won the game
+		return 0;
 	}
 }
 
@@ -237,5 +245,4 @@ function nextMove(){
 }
 
 initGame()
-
 
