@@ -152,14 +152,29 @@ function switchTurn(){
 function computerTurn(){
 	// open spaces left on the board
 	var openSpaces = []
+
 	// space to be played by the computer
 	var play
 
+	// store board states of possible next moves
+	var moves = []
+
+	// store list of possible moves scores (1 means player x wins, -1 means player 0 wins)
+	var scores = []
+
 	// find unplayed spaces
 	for (let i = 0; i < gameState.length; i++){
+		// variable to temporarily hold gameState
+		// let tempState = gameState
+
+		// set up openSpaces, develop moves array
 		if (gameState[i] == 0){
 			openSpaces.push(i)
+			moves.push(gameState.map(x => x))
+			moves[moves.length-1][i] = playerTurn
 		}
+
+		// calculate scores
 	}
 
 	// select a square to play
