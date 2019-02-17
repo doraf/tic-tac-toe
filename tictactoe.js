@@ -1,4 +1,6 @@
-
+// ***************
+// ** Variables **
+// ***************
 
 // for the sake of callculating a win, player X has a value of 1 and play O has a value of -1. Start with player X
 var playerTurn = 1; 
@@ -20,6 +22,9 @@ var squares = [].slice.call(square);
 // store callback fuction for each square for removing event listeners
 var squareCallback = [];
 
+// ***************
+// ** Functions **
+// ***************
 
 // END GAME
 function endGame(){
@@ -57,7 +62,6 @@ function initGame(){
 
 	// remove all played, played-o, played-x
 	squares.forEach(function(square){
-		console.log(square)
 		square.classList.remove('played')
 		square.classList.remove('played-x')
 		square.firstChild.classList.add('open-x')
@@ -69,7 +73,7 @@ function initGame(){
 	})
 
 	// add event listeners
-	for (var i = 0; i < squares.length; i++){
+	for (let i = 0; i < squares.length; i++){
 		squareCallback[i] = playSquare(i)
 		squares[i].addEventListener('click', squareCallback[i], {once : true})
 	}
@@ -129,6 +133,31 @@ function switchTurn(){
 			squares[j].firstChild.classList.toggle('open-o')
 		}
 	}
+
+	if (playerTurn == -1){
+		computerTurn()
+	}
+}
+
+// Computer plays a turn
+function computerTurn(){
+	// open spaces left on the board
+	var openSpaces = []
+	// space to be played by the computer
+	var play
+
+	// find unplayed spaces
+	for (let i = 0; i < gameState.length; i++){
+		if (gameState[i] == 0){
+			openSpaces.push(i)
+		}
+	}
+
+	// select a square to play
+	play = openSpaces[Math.floor(Math.random() * openSpaces.length)]
+
+	// play square
+	setTimeout(() => {squares[play].click()}, 500)
 }
 
 // Check to see if the most recent turn has won the game
@@ -191,13 +220,21 @@ function updateStatusBar(){
 	}
 }
 
-// add an event listener for clicks on all game board squares
-// for (var i = 0; i < squares.length; i++){
-// 	squareCallback[i] = playSquare(i)
-// 	squares[i].addEventListener('click', squareCallback[i], {once : true})
-// }
+// AI Turn
+function nextMove(){
+	// store board states of possible next moves
+	var moves = []
 
-// initStatusBar()
+	// store list of possible moves scores (1 means player x wins, -1 means player 0 wins)
+	var scores = []
+
+	// call generateMoves, create moves array
+	// checkWin on all possible moves
+		// if returns true, current player has won the game
+		// add to scores array
+	// if win, then play move
+	// for not wins, recurse down 
+}
 
 initGame()
 
