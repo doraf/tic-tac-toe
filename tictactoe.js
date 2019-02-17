@@ -104,7 +104,7 @@ function playSquare(playNum){
 			}
 			
 			// calculate if the most recent play wins the game
-			if (calcWin(playNum)){
+			if (calcWin(playNum, gameState)){
 				// game has been won by one of the players
 				if (playerTurn == 1){
 					// X has won the game
@@ -186,31 +186,31 @@ function computerTurn(){
 
 // Check to see if the most recent turn has won the game
 // lastPlayed is the index of the last played square in the game state array
-function calcWin(lastPlayed){
+function calcWin(lastPlayed, testState){
 	var calcRow = Math.floor(lastPlayed / 3)
 	var calcCol = lastPlayed % 3
 
 	// check both diagonals if the player has played a square with an even index
 	if (lastPlayed % 2 == 0){
-		return (checkDiagonal() || checkColumn(calcCol) || checkRow(calcRow))
+		return (checkDiagonal(testState) || checkColumn(calcCol, testState) || checkRow(calcRow, testState))
 	} else {
-		return (checkColumn(calcCol) || checkRow(calcRow))
+		return (checkColumn(calcCol, testState) || checkRow(calcRow, testState))
 	}
 }
 
-function checkRow(rowNum){
+function checkRow(rowNum, testState){
 	// Top row will equal 0, middle row 1, bottom row 2
-	return (checkWin(gameState[(rowNum*3)] + gameState[(rowNum*3)+1] + gameState[(rowNum*3)+2]))
+	return (checkWin(testState[(rowNum*3)] + testState[(rowNum*3)+1] + testState[(rowNum*3)+2]))
 }
 
-function checkColumn(rowNum){
+function checkColumn(rowNum, testState){
 	// Left column will equal 0, middle collum 1, right column 2
-	return (checkWin(gameState[rowNum] + gameState[rowNum+3] + gameState[rowNum+6]))
+	return (checkWin(testState[rowNum] + testState[rowNum+3] + testState[rowNum+6]))
 }
 
-function checkDiagonal(){
+function checkDiagonal(testState){
 	// check the score of both diagonals
-	return (checkWin(gameState[0] + gameState[4] + gameState[8]) || checkWin(gameState[2] + gameState[4] + gameState[6]))
+	return (checkWin(testState[0] + testState[4] + testState[8]) || checkWin(testState[2] + testState[4] + testState[6]))
 }
 
 // return true if someone has won the game
