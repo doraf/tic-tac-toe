@@ -164,21 +164,33 @@ function computerTurn(){
 
 	// find unplayed spaces
 	for (let i = 0; i < gameState.length; i++){
-		// variable to temporarily hold gameState
-		// let tempState = gameState
 
-		// set up openSpaces, develop moves array
 		if (gameState[i] == 0){
+			// set up open space array
 			openSpaces.push(i)
+
+			// add possible move to moves array
 			moves.push(gameState.map(x => x))
 			moves[moves.length-1][i] = playerTurn
-		}
 
-		// calculate scores
+			// calculate score of possible move
+			scores.push(calcWin(i, moves[moves.length-1]))
+		}
 	}
 
-	// select a square to play
-	play = openSpaces[Math.floor(Math.random() * openSpaces.length)]
+	// determine if scores contains a win, play winning move if is a win
+	if (scores.find(e => e == playerTurn)){
+		var winningMove = moves[scores.findIndex(e => e == playerTurn)]
+		for (let i = 0; i < gameState.length; i++){
+			if (winningMove[i] != gameState[i]){
+				play = i
+				console.log("gonna win now")
+			}
+		}
+	} else {
+		// otherwise, select a random square to play
+		play = openSpaces[Math.floor(Math.random() * openSpaces.length)]
+	}
 
 	// play square
 	setTimeout(() => {squares[play].click()}, 500)
