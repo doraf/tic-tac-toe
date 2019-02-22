@@ -144,12 +144,60 @@ function switchTurn(){
 	}
 
 	if (playerTurn == -1){
-		computerTurn()
+		computerTurn(gameState, playerTurn)
 	}
 }
 
 // Computer plays a turn
-function computerTurn(){
+// function computerTurn(){
+// 	// open spaces left on the board
+// 	var openSpaces = []
+
+// 	// space to be played by the computer
+// 	var play
+
+// 	// store board states of possible next moves
+// 	var moves = []
+
+// 	// store list of possible moves scores (1 means player x wins, -1 means player 0 wins)
+// 	var scores = []
+
+// 	// find unplayed spaces
+// 	for (let i = 0; i < gameState.length; i++){
+
+// 		if (gameState[i] == 0){
+// 			// set up open space array
+// 			openSpaces.push(i)
+
+// 			// add possible move to moves array
+// 			moves.push(gameState.map(x => x))
+// 			moves[moves.length-1][i] = playerTurn
+
+// 			// calculate score of possible move
+// 			scores.push(calcWin(i, moves[moves.length-1]))
+// 		}
+// 	}
+
+// 	// determine if scores contains a win, play winning move if is a win
+// 	if (scores.find(e => e == playerTurn)){
+// 		var winningMove = moves[scores.findIndex(e => e == playerTurn)]
+// 		for (let i = 0; i < gameState.length; i++){
+// 			if (winningMove[i] != gameState[i]){
+// 				play = i
+// 				console.log("gonna win now")
+// 			}
+// 		}
+// 	} else {
+// 		// otherwise, select a random square to play
+// 		play = openSpaces[Math.floor(Math.random() * openSpaces.length)]
+// 	}
+
+// 	// play square
+// 	setTimeout(() => {squares[play].click()}, 500)
+// }
+
+// attempt at recursion... good luck to me
+function computerTurn(state, player){
 	// open spaces left on the board
 	var openSpaces = []
 
@@ -162,38 +210,52 @@ function computerTurn(){
 	// store list of possible moves scores (1 means player x wins, -1 means player 0 wins)
 	var scores = []
 
-	// find unplayed spaces
-	for (let i = 0; i < gameState.length; i++){
+	// find possible next moves
+	for (let i = 0; i < state.length; i++){
 
-		if (gameState[i] == 0){
+		if (state[i] == 0){
 			// set up open space array
 			openSpaces.push(i)
-
-			// add possible move to moves array
-			moves.push(gameState.map(x => x))
-			moves[moves.length-1][i] = playerTurn
-
-			// calculate score of possible move
-			scores.push(calcWin(i, moves[moves.length-1]))
 		}
 	}
 
-	// determine if scores contains a win, play winning move if is a win
-	if (scores.find(e => e == playerTurn)){
-		var winningMove = moves[scores.findIndex(e => e == playerTurn)]
-		for (let i = 0; i < gameState.length; i++){
-			if (winningMove[i] != gameState[i]){
-				play = i
-				console.log("gonna win now")
-			}
-		}
-	} else {
-		// otherwise, select a random square to play
-		play = openSpaces[Math.floor(Math.random() * openSpaces.length)]
-	}
+	genMoves(state, player)
 
+	// what to do next?
+	// if (){
+	// 	// if this is a winning move
+	// 	return player
+	// } else if (player == 1){
+	// 	// x's turn
+	// } else if (player == -1){
+	// 	// o's turn
+	// }
+
+	play = openSpaces[Math.floor(Math.random() * openSpaces.length)]
 	// play square
 	setTimeout(() => {squares[play].click()}, 500)
+}
+
+function genMoves(state, player){
+	// store board states of possible next moves
+	var moves = []
+
+	// store list of possible moves scores (1 means player x wins, -1 means player 0 wins)
+	var scores = []
+
+	// find possible next moves
+	for (let i = 0; i < state.length; i++){
+
+		if (state[i] == 0){
+
+			// add possible move to moves array
+			moves.push(state.map(x => x))
+			moves[moves.length-1][i] = player
+			genMoves(moves[moves.length-1], player*-1)
+		} else {
+			moves.push(null)
+		}
+	}
 }
 
 // Check to see if the most recent turn has won the game
@@ -253,22 +315,6 @@ function updateStatusBar(){
 	} else if (playerTurn == -1){
 		statusText.textContent = "O's turn"
 	}
-}
-
-// AI Turn
-function nextMove(){
-	// store board states of possible next moves
-	var moves = []
-
-	// store list of possible moves scores (1 means player x wins, -1 means player 0 wins)
-	var scores = []
-
-	// call generateMoves, create moves array
-	// checkWin on all possible moves
-		// if returns true, current player has won the game
-		// add to scores array
-	// if win, then play move
-	// for not wins, recurse down 
 }
 
 initGame()
