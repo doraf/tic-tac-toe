@@ -219,7 +219,7 @@ function computerTurn(state, player){
 		}
 	}
 
-	genMoves(state, player)
+	console.log(genMoves(state, player))
 
 	// what to do next?
 	// if (){
@@ -243,6 +243,8 @@ function genMoves(state, player){
 	// store list of possible moves scores (1 means player x wins, -1 means player 0 wins)
 	var scores = []
 
+	var tempScore
+
 	// find possible next moves
 	for (let i = 0; i < state.length; i++){
 
@@ -251,11 +253,20 @@ function genMoves(state, player){
 			// add possible move to moves array
 			moves.push(state.map(x => x))
 			moves[moves.length-1][i] = player
-			genMoves(moves[moves.length-1], player*-1)
+			tempScore = calcWin(i, moves[moves.length-1])
+			if (tempScore == 0){
+				// keep recursing
+				scores.push(genMoves(moves[moves.length-1], player*-1).reduce((acc, cur) => acc + cur))
+			}	else {
+				scores.push(tempScore)
+			}
 		} else {
 			moves.push(null)
+			scores.push(0)
 		}
 	}
+
+	return scores
 }
 
 // Check to see if the most recent turn has won the game
