@@ -204,51 +204,59 @@ function genMoves(state, player){
 	var scores = []
 
 	var tempScore
+	var tempScores = []
 
-	// var score = calcGame(state)
-	// console.log(score)
-
-	// find possible next moves
+	// find possible next moves and generate scores array
 	for (let i = 0; i < state.length; i++){
 
 		if (state[i] == 0){
 
 			// add possible move to moves array
-			moves.push(state.map(x => x))
-			moves[moves.length-1][i] = player
-			tempScore = calcWin(i, moves[moves.length-1])
-			if (tempScore == 0){
+			moves = state.slice()
+			moves[i] = player
+
+			// determine if the game contains a win
+			tempScore = calcWin(i, moves)
+
+			// console.log("score: " + tempScore)
+			if (tempScore == 0 && moves.includes(0)){
 				// keep recursing
-				scores.push(genMoves(moves[moves.length-1], player*-1).reduce((acc, cur) => acc + cur))
+				// scores.push(genMoves(moves, player*-1).reduce((totalScore, cur) => totalScore + cur))
+				scores.push(findMiniMax(genMoves(moves, player*-1), player*-1))
 			}	else {
+				//  game has been won or is a draw
 				scores.push(tempScore)
 			}
 		} else {
-			moves.push(null)
-			scores.push(0)
+			scores.push(null)
 		}
 	}
-
-	// return scores
-	// if (score){
-	// 	// console.log("win: " + score)
-	// 	scores.push(score)
-	// 	// console.log(scores)
-	// } else if (score == 0 && !(state.includes(0))){
-	// 	// test for a draw
-	// 	// console.log('draw')
-	// 	scores.push(score)
-	// }
-	// else {
-	// 	state.forEach(function(move, index){
-	// 		if(move == 0){
-	// 			moves = state.slice()
-	// 			moves[index] = player
-	// 			scores.push(genMoves(moves, player*-1).reduce((acc, cur) => acc + cur))
-	// 		}
-	// 	})
-	// }
 	return scores
+}
+
+// minimax function
+function findMiniMax(scores, player){
+	let minimax = -999999999 * player
+
+	if (player === 1){
+		//  return highest score
+		scores.forEach(function(score){
+			if (score > minimax && score != null){
+				minimax = score
+			}
+		})
+
+	} else {
+		// return lowest score
+		scores.forEach(function(score){
+			if (score < minimax && score != null){
+				minimax = score
+			}
+		})
+	}
+
+	// return the selected score
+	return minimax
 }
 
 // check for a win on the entire game, without knowing the previous move
