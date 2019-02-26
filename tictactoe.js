@@ -148,61 +148,14 @@ function switchTurn(){
 	}
 }
 
-// Computer plays a turn
-// function computerTurn(){
-// 	// open spaces left on the board
-// 	var openSpaces = []
-
-// 	// space to be played by the computer
-// 	var play
-
-// 	// store board states of possible next moves
-// 	var moves = []
-
-// 	// store list of possible moves scores (1 means player x wins, -1 means player 0 wins)
-// 	var scores = []
-
-// 	// find unplayed spaces
-// 	for (let i = 0; i < gameState.length; i++){
-
-// 		if (gameState[i] == 0){
-// 			// set up open space array
-// 			openSpaces.push(i)
-
-// 			// add possible move to moves array
-// 			moves.push(gameState.map(x => x))
-// 			moves[moves.length-1][i] = playerTurn
-
-// 			// calculate score of possible move
-// 			scores.push(calcWin(i, moves[moves.length-1]))
-// 		}
-// 	}
-
-// 	// determine if scores contains a win, play winning move if is a win
-// 	if (scores.find(e => e == playerTurn)){
-// 		var winningMove = moves[scores.findIndex(e => e == playerTurn)]
-// 		for (let i = 0; i < gameState.length; i++){
-// 			if (winningMove[i] != gameState[i]){
-// 				play = i
-// 				console.log("gonna win now")
-// 			}
-// 		}
-// 	} else {
-// 		// otherwise, select a random square to play
-// 		play = openSpaces[Math.floor(Math.random() * openSpaces.length)]
-// 	}
-
-// 	// play square
-// 	setTimeout(() => {squares[play].click()}, 500)
-// }
-
 // attempt at recursion... good luck to me
 function computerTurn(state, player){
 	// open spaces left on the board
 	var openSpaces = []
 
 	// space to be played by the computer
-	var play
+	var play = 999999999
+	var playIndex
 
 	// store board states of possible next moves
 	var moves = []
@@ -219,21 +172,28 @@ function computerTurn(state, player){
 		}
 	}
 
-	console.log(genMoves(state, player))
+	// console.log('PLAY: ' + play)
 
-	// what to do next?
-	// if (){
-	// 	// if this is a winning move
-	// 	return player
-	// } else if (player == 1){
-	// 	// x's turn
-	// } else if (player == -1){
-	// 	// o's turn
-	// }
+	scores = genMoves(gameState, playerTurn)
+	console.log(scores)
 
-	play = openSpaces[Math.floor(Math.random() * openSpaces.length)]
+	// console.log(scores)
+	// console.log(play)
+	scores.forEach(function(score, index){
+		// console.log(index + ': ' + score)
+		if (score < play && gameState[index] == 0){
+			// console.log('score: ' + score)
+			play = score
+			playIndex = index
+			// console.log('PLAY: ' + playIndex)
+		}
+	})
+	// playIndex = 1
+	// console.log('PLAY: ' + playIndex)
+
+	// play = openSpaces[Math.floor(Math.random() * openSpaces.length)]
 	// play square
-	setTimeout(() => {squares[play].click()}, 500)
+	setTimeout(() => {squares[playIndex].click()}, 500)
 }
 
 function genMoves(state, player){
@@ -244,6 +204,9 @@ function genMoves(state, player){
 	var scores = []
 
 	var tempScore
+
+	// var score = calcGame(state)
+	// console.log(score)
 
 	// find possible next moves
 	for (let i = 0; i < state.length; i++){
@@ -266,7 +229,38 @@ function genMoves(state, player){
 		}
 	}
 
+	// return scores
+	// if (score){
+	// 	// console.log("win: " + score)
+	// 	scores.push(score)
+	// 	// console.log(scores)
+	// } else if (score == 0 && !(state.includes(0))){
+	// 	// test for a draw
+	// 	// console.log('draw')
+	// 	scores.push(score)
+	// }
+	// else {
+	// 	state.forEach(function(move, index){
+	// 		if(move == 0){
+	// 			moves = state.slice()
+	// 			moves[index] = player
+	// 			scores.push(genMoves(moves, player*-1).reduce((acc, cur) => acc + cur))
+	// 		}
+	// 	})
+	// }
 	return scores
+}
+
+// check for a win on the entire game, without knowing the previous move
+function calcGame(testState){
+	// console.log(checkDiagonal(testState) + ', ' + checkRow(1, testState) + ', ' + checkRow(2, testState) + ', ' + checkRow(3, testState) + ', ' + checkColumn(1, testState) + ', ' + checkColumn(2, testState) + ', ' + checkColumn(3, testState))
+	return (checkDiagonal(testState) || 
+		checkRow(1, testState) ||
+		checkRow(2, testState) ||
+		checkRow(3, testState) ||
+		checkColumn(1, testState) ||
+		checkColumn(2, testState) ||
+		checkColumn(3, testState))
 }
 
 // Check to see if the most recent turn has won the game
