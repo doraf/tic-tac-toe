@@ -148,10 +148,8 @@ function switchTurn(){
 	}
 }
 
-// attempt at recursion... good luck to me
+// initialize the computer taking a turn
 function computerTurn(state, player){
-	// open spaces left on the board
-	var openSpaces = []
 
 	// space to be played by the computer
 	var play = 999999999
@@ -163,39 +161,22 @@ function computerTurn(state, player){
 	// store list of possible moves scores (1 means player x wins, -1 means player 0 wins)
 	var scores = []
 
-	// find possible next moves
-	for (let i = 0; i < state.length; i++){
-
-		if (state[i] == 0){
-			// set up open space array
-			openSpaces.push(i)
-		}
-	}
-
-	// console.log('PLAY: ' + play)
-
+	// generate scores for the next move
 	scores = genMoves(gameState, playerTurn)
-	console.log(scores)
 
-	// console.log(scores)
-	// console.log(play)
+	// find an appropriate play for the next move
 	scores.forEach(function(score, index){
-		// console.log(index + ': ' + score)
 		if (score < play && gameState[index] == 0){
-			// console.log('score: ' + score)
 			play = score
 			playIndex = index
-			// console.log('PLAY: ' + playIndex)
 		}
 	})
-	// playIndex = 1
-	// console.log('PLAY: ' + playIndex)
 
-	// play = openSpaces[Math.floor(Math.random() * openSpaces.length)]
 	// play square
 	setTimeout(() => {squares[playIndex].click()}, 500)
 }
 
+// generate a list of possible scores for each possible next move
 function genMoves(state, player){
 	// store board states of possible next moves
 	var moves = []
@@ -203,8 +184,8 @@ function genMoves(state, player){
 	// store list of possible moves scores (1 means player x wins, -1 means player 0 wins)
 	var scores = []
 
+	// temporarily store a score value
 	var tempScore
-	var tempScores = []
 
 	// find possible next moves and generate scores array
 	for (let i = 0; i < state.length; i++){
@@ -218,16 +199,15 @@ function genMoves(state, player){
 			// determine if the game contains a win
 			tempScore = calcWin(i, moves)
 
-			// console.log("score: " + tempScore)
 			if (tempScore == 0 && moves.includes(0)){
-				// keep recursing
-				// scores.push(genMoves(moves, player*-1).reduce((totalScore, cur) => totalScore + cur))
+				// recurse through the minimax function on open spaces that don't end the game
 				scores.push(findMiniMax(genMoves(moves, player*-1), player*-1))
 			}	else {
 				//  game has been won or is a draw
 				scores.push(tempScore)
 			}
 		} else {
+			// space has already been played
 			scores.push(null)
 		}
 	}
@@ -238,7 +218,7 @@ function genMoves(state, player){
 function findMiniMax(scores, player){
 	let minimax = -999999999 * player
 
-	if (player === 1){
+	if (player == 1){
 		//  return highest score
 		scores.forEach(function(score){
 			if (score > minimax && score != null){
