@@ -37,11 +37,6 @@ function endGame(){
 	board.classList.add('over')
 }
 
-// Provide Feedback that the game is a draw
-function drawGame(){
-	showStatus(0)
-}
-
 // initialize the game board
 function initGame(){
 	gameState = [0,0,0,0,0,0,0,0,0]
@@ -52,10 +47,6 @@ function initGame(){
 	board.classList.remove('over')
 	board.classList.remove('o-won')
 	board.classList.remove('x-won')
-
-	// set proper classes on status bar
-	statusBar.classList.remove('x')
-	statusBar.classList.remove('o')
 
 	// remove all played, played-o, played-x
 	squares.forEach(function(square){
@@ -76,7 +67,7 @@ function initGame(){
 	}
 
 	// init status bar
-	showStatus(playerTurn)
+	showStatus(playerTurn, false)
 }
 
 // return a function to select a square on behalf of the player
@@ -105,11 +96,11 @@ function playSquare(playNum){
 				// game has been won by one of the players
 				if (playerTurn == 1){
 					// X has won the game
-					statusText.textContent = 'X has won!'
+					showStatus(1, true)
 					board.classList.add('x-won')
 				} else {
 					// O has won the game
-					statusText.textContent = 'O has won!'
+					showStatus(-1, true)
 					board.classList.add('o-won')
 				}
 				endGame()
@@ -119,7 +110,8 @@ function playSquare(playNum){
 				switchTurn()
 			} else {
 				// game is a draw
-				showStatus(0)
+				board.classList.add('draw')
+				showStatus(0, false)
 				setTimeout(() => {initGame()}, 1500)
 			}
 		}
@@ -130,7 +122,7 @@ function switchTurn(){
 
 	// update marker for the next player (X is 1, O is -1)
 	playerTurn *= -1;
-	showStatus(playerTurn)
+	showStatus(playerTurn, false)
 
 	// update DOM to reflect new player
 	for (var j = 0; j < squares.length; j++){
@@ -292,32 +284,53 @@ function checkWin(score){
 }
 
 // SHOW GAME STATE
-function showStatus(turn){
-	if (turn == 1){
-		// X's turn
-		statusBar.classList.remove('o')
-		statusBar.classList.add('x')
-		statusText.textContent = "X's turn"
+function showStatus(turn, win){
+	if (win == true){
+		// game has been won
+		if (turn == 1){
+			// X has won the game
+			statusBar.classList.remove('o')
+			statusBar.classList.add('x')
+			statusText.textContent = 'X has won!'
 
-		playerStatus.classList.remove('o')
-		playerStatus.classList.add('x')
-	} else if (turn == -1){
-		// O's turn
-		statusBar.classList.remove('x')
-		statusBar.classList.add('o')
-		statusText.textContent = "O's turn"
+			playerStatus.classList.remove('o')
+			playerStatus.classList.add('x')
+		} else {
+			// O has won the game
+			statusBar.classList.remove('x')
+			statusBar.classList.add('o')
+			statusText.textContent = 'O has won!'
 
-		playerStatus.classList.remove('x')
-		playerStatus.classList.add('o')
-	} else if (turn == 0){
-		// game is a draw
-		board.classList.add('draw')
-		statusBar.classList.add('draw')
-		statusBar.classList.remove('x')
-		statusBar.classList.remove('o')
-		statusText.textContent = 'Game is a Draw'
-		playerStatus.classList.remove('x')
-		playerStatus.classList.remove('o')
+			playerStatus.classList.remove('x')
+			playerStatus.classList.add('o')
+		}
+	} else {
+		// game has not been won
+		if (turn == 1){
+			// X's turn
+			statusBar.classList.remove('o')
+			statusBar.classList.add('x')
+			statusText.textContent = "X's turn"
+
+			playerStatus.classList.remove('o')
+			playerStatus.classList.add('x')
+		} else if (turn == -1){
+			// O's turn
+			statusBar.classList.remove('x')
+			statusBar.classList.add('o')
+			statusText.textContent = "O's turn"
+
+			playerStatus.classList.remove('x')
+			playerStatus.classList.add('o')
+		} else if (turn == 0){
+			// game is a draw
+			statusBar.classList.add('draw')
+			statusBar.classList.remove('x')
+			statusBar.classList.remove('o')
+			statusText.textContent = 'Game is a Draw'
+			playerStatus.classList.remove('x')
+			playerStatus.classList.remove('o')
+		}
 	}
 }
 
