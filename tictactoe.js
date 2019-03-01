@@ -310,5 +310,9 @@ function updateStatusBar(){
 	}
 }
 
+// ****************
+// ** Let's Play **
+// ****************
+
 initGame()
 

@@ -5,12 +5,31 @@ html, body{
 	font-family: sans-serif;
 }
 
+/* page layout */
+.play-space{
+	display: flex;
+	flex-direction: row;
+}
+@media (max-width: 850px){
+	.play-space{
+		flex-direction: column-reverse;
+	}
+}
+
 /* header */
 header{
 	color: #fff;
-	background-color: #2b303b;
-	padding: 7px 0 0 0;
+	background-color: #7b8396;
 	text-align: center;
+	flex-basis: 400px;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+
+.title{
+	background-color: #2b303b;
+	margin: 0;
+	padding: 20px 0;
 }
 
 .status{
@@ -32,12 +51,29 @@ header{
 }
 
 /* Tic Tac Toe Board layout */
+.gameboard{
+	flex-grow: 2;
+	padding: 50px 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
 .board{
 	margin: 20px auto;
-	width: 70vw;
-	height: 70vw;
+	width: 50vw;
+	height: 50vw;
+	max-width: 1220px;
+	max-height: 1220px;
 	display: flex;
 	flex-wrap: wrap;
+}
+
+@media (max-width: 850px){
+	.board{
+		height: 90vw;
+		width: 90vw;
+	}	
 }
 
 .square{
@@ -49,12 +85,34 @@ header{
 	align-items: center;
 }
 
-.square:nth-of-type(3n+1), .square:nth-of-type(3n+2){
-	border-right: solid 1.75vw #ccc;
+@media (min-width: 2240px){
+	.square:nth-of-type(3n+1), .square:nth-of-type(3n+2){
+		border-right: solid 39px #ccc;
+	}
+
+	.square:nth-child(-n+6){
+		border-bottom: solid 39px #ccc;
+	}
 }
 
-.square:nth-child(-n+6){
-	border-bottom: solid 1.75vw #ccc;
+@media (max-width: 2239px ) and (min-width: 851px){
+	.square:nth-of-type(3n+1), .square:nth-of-type(3n+2){
+		border-right: solid 1.75vw #ccc;
+	}
+
+	.square:nth-child(-n+6){
+		border-bottom: solid 1.75vw #ccc;
+	}
+}
+
+@media (max-width: 850px){
+	.square:nth-of-type(3n+1), .square:nth-of-type(3n+2){
+		border-right: solid 3.93vw #ccc;
+	}
+
+	.square:nth-child(-n+6){
+		border-bottom: solid 3.93vw #ccc;
+	}
 }
 
 /* squares */
@@ -65,20 +123,60 @@ header{
 /* style X player */
 .player-x{
 	position: relative;
-	width: 11vw;
-	height: 11vw;
+}
+
+@media (min-width: 2240px){
+	.player-x{
+		width: 246px;
+		height: 246px;
+	}
+}
+
+@media (max-width: 2239px ) and (min-width: 851px){
+	.player-x{
+		width: 11vw;
+		height: 11vw;
+	}
+}
+
+@media (max-width: 850px){
+	.player-x{
+		width: 24vw;
+		height: 24vw;
+	}
 }
 
 .player-x:before, .player-x:after{
 	position: absolute;
 	top: 0;
-	left: 4.25vw;
 	display: block;
 	content: '';
-	width: 2.5vw;
-	height: 11vw;
 	background-color: hotpink;
 	transition: background-color .2s ease-in;
+}
+
+@media (min-width: 2240px){
+	.player-x:before, .player-x:after{
+		left: 95px;
+		width: 56px;
+		height: 247px;
+	}
+}
+
+@media (max-width: 2239px ) and (min-width: 851px){
+	.player-x:before, .player-x:after{
+		left: 4.25vw;
+		width: 2.5vw;
+		height: 11vw;
+	}
+}
+
+@media (max-width: 850px){
+	.player-x:before, .player-x:after{
+		left: 9.56vw;
+		width: 5.6vw;
+		height: 24vw;
+	}
 }
 
 .player-x:before{
@@ -97,18 +195,58 @@ header{
 /* open X */
 .open-x{
 	position: relative;
-	width: 11vw;
-	height: 11vw;
+}
+
+@media (min-width: 2240px){
+	.open-x{
+		width: 246px;
+		height: 246px;
+	}
+}
+
+@media (max-width: 2239px ) and (min-width: 851px){
+	.open-x{
+		width: 11vw;
+		height: 11vw;
+	}
+}
+
+@media (max-width: 850px){
+	.open-x{
+		width: 24vw;
+		height: 24vw;
+	}
 }
 
 .open-x:before, .open-x:after{
 	position: absolute;
 	top: 0;
-	left: 4.25vw;
 	display: block;
 	content: '';
-	width: 2.5vw;
-	height: 11vw;
+}
+
+@media (min-width: 2240px){
+	.open-x:before, .open-x:after{
+		left: 95px;
+		width: 56px;
+		height: 246px;
+	}
+}
+
+@media (max-width: 2239px ) and (min-width: 851px){
+	.open-x:before, .open-x:after{
+		left: 4.25vw;
+		width: 2.5vw;
+		height: 11vw;
+	}
+}
+
+@media (max-width: 850px){
+	.open-x:before, .open-x:after{
+		left: 9.56vw;
+		width: 5.6vw;
+		height: 24vw;
+	}
 }
 
 .open-x:before{
@@ -127,23 +265,68 @@ header{
 /* style O player*/
 .player-o{
 	box-sizing: border-box;
-	height: 11vw;
-	width: 11vw;
-	border-radius: 5.5vw;
 	border: 2.5vw solid green;
 	transition: border-color .2s ease-in;
+}
+@media (min-width: 2240px){
+	.player-o{
+		width: 246px;
+		height: 246px;
+		border-radius: 123px;
+		border-width: 56px; 
+	}
+}
+
+@media (max-width: 2239px ) and (min-width: 851px){
+	.player-o{
+		height: 11vw;
+		width: 11vw;
+		border-radius: 5.5vw;
+	}
+}
+
+@media (max-width: 850px){
+	.player-o{
+		height: 25vw;
+		width: 25vw;
+		border-radius: 12vw;
+		border-width: 5.6vw; 
+	}
 }
 
 .x-won .player-o, 
 .draw .player-o{
-	border: 2.5vw solid #ccc;
+	border-color: #ccc;
 }
 /* open O*/
 
 :not(.over)>.square:not(.played):hover .open-o{
 	box-sizing: border-box;
-	height: 11vw;
-	width: 11vw;
-	border-radius: 5.5vw;
 	border: 2.5vw solid #eee;
+}
+
+@media (min-width: 2240px){
+	:not(.over)>.square:not(.played):hover .open-o{
+		width: 246px;
+		height: 246px;
+		border-radius: 123px;
+		border-width: 56px; 
+	}
+}
+
+@media (max-width: 2239px ) and (min-width: 851px){
+	:not(.over)>.square:not(.played):hover .open-o{
+		height: 11vw;
+		width: 11vw;
+		border-radius: 5.5vw;
+	}
+}
+
+@media (max-width: 850px){
+	:not(.over)>.square:not(.played):hover .open-o{
+		height: 25vw;
+		width: 25vw;
+		border-radius: 12vw;
+		border-width: 5.6vw;  
+	}
 }
