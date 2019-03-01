@@ -287,10 +287,10 @@ header{
 
 @media (max-width: 850px){
 	.player-o{
-		height: 25vw;
-		width: 25vw;
+		height: 24vw;
+		width: 24vw;
 		border-radius: 12vw;
-		border-width: 5.6vw; 
+		border-width: 5.06vw; 
 	}
 }
 
