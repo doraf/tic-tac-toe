@@ -12,6 +12,7 @@ var gameState = []
 var statusBar = document.querySelector('.status')
 var statusText = document.querySelector('.status h2')
 var board = document.querySelector('.board')
+var playerStatus = document.querySelector('.players')
 
 // grab static NodeList of elements representing squares on the game board
 var square = document.querySelectorAll('.square');
@@ -38,11 +39,7 @@ function endGame(){
 
 // Provide Feedback that the game is a draw
 function drawGame(){
-	board.classList.add('draw')
-	statusBar.classList.add('draw')
-	statusBar.classList.remove('x')
-	statusBar.classList.remove('o')
-	statusText.textContent = 'Game is a Draw'
+	showStatus(0)
 }
 
 // initialize the game board
@@ -79,7 +76,7 @@ function initGame(){
 	}
 
 	// init status bar
-	initStatusBar()
+	showStatus(playerTurn)
 }
 
 // return a function to select a square on behalf of the player
@@ -122,7 +119,7 @@ function playSquare(playNum){
 				switchTurn()
 			} else {
 				// game is a draw
-				drawGame()
+				showStatus(0)
 				setTimeout(() => {initGame()}, 1500)
 			}
 		}
@@ -133,7 +130,7 @@ function switchTurn(){
 
 	// update marker for the next player (X is 1, O is -1)
 	playerTurn *= -1;
-	updateStatusBar()
+	showStatus(playerTurn)
 
 	// update DOM to reflect new player
 	for (var j = 0; j < squares.length; j++){
@@ -294,19 +291,33 @@ function checkWin(score){
 	}
 }
 
-// STATUS BAR
-function initStatusBar(){
-	statusBar.classList.toggle('x')
-	statusText.textContent = "X's turn"
-}
-
-function updateStatusBar(){
-	statusBar.classList.toggle('x')
-	statusBar.classList.toggle('o')
-	if (playerTurn == 1) {
+// SHOW GAME STATE
+function showStatus(turn){
+	if (turn == 1){
+		// X's turn
+		statusBar.classList.remove('o')
+		statusBar.classList.add('x')
 		statusText.textContent = "X's turn"
-	} else if (playerTurn == -1){
+
+		playerStatus.classList.remove('o')
+		playerStatus.classList.add('x')
+	} else if (turn == -1){
+		// O's turn
+		statusBar.classList.remove('x')
+		statusBar.classList.add('o')
 		statusText.textContent = "O's turn"
+
+		playerStatus.classList.remove('x')
+		playerStatus.classList.add('o')
+	} else if (turn == 0){
+		// game is a draw
+		board.classList.add('draw')
+		statusBar.classList.add('draw')
+		statusBar.classList.remove('x')
+		statusBar.classList.remove('o')
+		statusText.textContent = 'Game is a Draw'
+		playerStatus.classList.remove('x')
+		playerStatus.classList.remove('o')
 	}
 }
 
