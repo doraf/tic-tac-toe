@@ -11,8 +11,30 @@
 		<h1 class="title">Tic Tac Toe</h1>
 		<div class="status"><h2>Let's play Tic Tac Toe</h2></div>
 		<div class="players">
-			<div class="player-one-x"></div>
-			<div class="player-two-o"></div>
+
+			<!-- player X -->
+			<div class="group-pick">
+				<div class="player-one-x"></div>
+				<div class="switch select-x">
+					<input type="radio" name="playerx" id="humanx" checked />
+					<label for="humanx" class="player-pick">Human</label>
+
+					<input type="radio" name="playerx" id="computerx" />
+					<label for="computerx" class="player-pick">Computer</label>
+				</div>
+			</div>
+
+			<!-- player O -->
+			<div class="group-pick">
+				<div class="player-two-o"></div>
+				<div class="switch select-o">
+					<input type="radio" name="playero" id="humano" />
+					<label for="humano" class="player-pick">Human</label>
+
+					<input type="radio" name="playero" id="computero" checked />
+					<label for="computero" class="player-pick">Computer</label>
+				</div>
+			</div>
 		</div>
 	</header>
 
