@@ -15,11 +15,11 @@
 			<!-- player X -->
 			<div class="group-pick">
 				<div class="player-one-x"></div>
-				<div class="switch select-x">
-					<input type="radio" name="playerx" id="humanx" checked />
+				<div class="switch select-x hide">
+					<input type="radio" name="playerx" id="humanx" checked disabled />
 					<label for="humanx" class="player-pick">Human</label>
 
-					<input type="radio" name="playerx" id="computerx" />
+					<input type="radio" name="playerx" id="computerx" disabled />
 					<label for="computerx" class="player-pick">Computer</label>
 				</div>
 			</div>
@@ -27,11 +27,11 @@
 			<!-- player O -->
 			<div class="group-pick">
 				<div class="player-two-o"></div>
-				<div class="switch select-o">
-					<input type="radio" name="playero" id="humano" />
+				<div class="switch select-o hide">
+					<input type="radio" name="playero" id="humano" disabled />
 					<label for="humano" class="player-pick">Human</label>
 
-					<input type="radio" name="playero" id="computero" checked />
+					<input type="radio" name="playero" id="computero" checked disabled />
 					<label for="computero" class="player-pick">Computer</label>
 				</div>
 			</div>
@@ -39,23 +39,23 @@
 
 		<!-- New Game -->
 		<div class="new-game">
-			<button class="new-game-button">New Game</button>
+			<button class="new-game-button hide" disabled>New Game</button>
 		</div>
 	</header>
 
 	<div class="gameboard">
 		<div class="board">
-			<div class="square" id="0"><div class="open-x"></div></div>
-			<div class="square" id="1"><div class="open-x"></div></div>
-			<div class="square" id="2"><div class="open-x"></div></div>
+			<div class="square" id="0"><div class="played"></div></div>
+			<div class="square" id="1"><div class="played"></div></div>
+			<div class="square" id="2"><div class="played"></div></div>
 
-			<div class="square" id="3"><div class="open-x"></div></div>
-			<div class="square" id="4"><div class="open-x"></div></div>
-			<div class="square" id="5"><div class="open-x"></div></div>
+			<div class="square" id="3"><div class="played"></div></div>
+			<div class="square" id="4"><div class="played"></div></div>
+			<div class="square" id="5"><div class="played"></div></div>
 
-			<div class="square" id="6"><div class="open-x"></div></div>
-			<div class="square" id="7"><div class="open-x"></div></div>
-			<div class="square" id="8"><div class="open-x"></div></div>
+			<div class="square" id="6"><div class="played"></div></div>
+			<div class="square" id="7"><div class="played"></div></div>
+			<div class="square" id="8"><div class="played"></div></div>
 		</div>
 	</div>
 

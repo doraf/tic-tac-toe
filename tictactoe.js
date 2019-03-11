@@ -14,6 +14,15 @@ var statusText = document.querySelector('.status h2')
 var board = document.querySelector('.board')
 var playerStatus = document.querySelector('.players')
 
+// elements related to starting a new game
+var newGameBtn = document.querySelector('.new-game-button')
+var selectX = document.querySelector('.select-x')
+var selectO = document.querySelector('.select-o')
+var selectXhuman = document.querySelector('#humanx');
+var selectXcomputer = document.querySelector('#computerx');
+var selectOhuman = document.querySelector('#humano');
+var selectOcomputer = document.querySelector('#computero');
+
 // grab static NodeList of elements representing squares on the game board
 var square = document.querySelectorAll('.square');
 
@@ -39,6 +48,37 @@ function endGame(){
 
 // initialize the game board
 function initGame(){
+	// show pickers and new game button
+	newGameBtn.classList.remove('hide')
+	selectX.classList.remove('hide')
+	selectO.classList.remove('hide')
+
+	// enable pickers and new game button
+	newGameBtn.removeAttribute('disabled')
+	selectXhuman.removeAttribute('disabled')
+	selectXcomputer.removeAttribute('disabled')
+	selectOhuman.removeAttribute('disabled')
+	selectOcomputer.removeAttribute('disabled')
+
+	// add event lister for new game button
+	newGameBtn.addEventListener('click', newGame, {once : true})
+}
+
+// Clicking a new game button
+function newGame(){
+
+	// hide pickers and new game button
+	newGameBtn.classList.add('hide')
+	selectX.classList.add('hide')
+	selectO.classList.add('hide')
+
+	// // disable pickers and new game button
+	// newGameBtn.createAttribute('disabled')
+	selectXhuman.setAttribute('disabled', 'disabled')
+	selectXcomputer.setAttribute('disabled', 'disabled')
+	selectOhuman.setAttribute('disabled', 'disabled')
+	selectOcomputer.setAttribute('disabled', 'disabled')
+
 	gameState = [0,0,0,0,0,0,0,0,0]
 	playerTurn = 1;
 
@@ -68,6 +108,9 @@ function initGame(){
 
 	// init status bar
 	showStatus(playerTurn)
+
+	// hide new game button
+	// hide player pickers
 }
 
 // return a function to select a square on behalf of the player
@@ -104,7 +147,7 @@ function playSquare(playNum){
 					board.classList.add('o-won')
 				}
 				endGame()
-				setTimeout(() => {initGame()}, 1500)
+				setTimeout(() => {initGame()}, 500)
 			} else if (gameState.includes(0)){
 				// game continues, switch players
 				switchTurn()
@@ -112,7 +155,7 @@ function playSquare(playNum){
 				// game is a draw
 				board.classList.add('draw')
 				showStatus(0)
-				setTimeout(() => {initGame()}, 1500)
+				setTimeout(() => {initGame()}, 500)
 			}
 		}
 }

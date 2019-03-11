@@ -454,3 +454,8 @@ header{
 	border-color: #2b303b;
 	transform: translateY(2px);
 }
+
+/* utility */
+.hide{
+	display: none;
+}
