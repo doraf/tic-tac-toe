@@ -3,7 +3,11 @@
 // ***************
 
 // for the sake of callculating a win, player X has a value of 1 and play O has a value of -1. Start with player X
-var playerTurn = 1; 
+var playerTurn = 1 
+
+// determines which players are human or computer
+var playerX
+var playerO
 
 // each element corresponds to a place on the 3x3 game board, a value of 0 says that the square hasn't been played
 var gameState = []
@@ -18,19 +22,21 @@ var playerStatus = document.querySelector('.players')
 var newGameBtn = document.querySelector('.new-game-button')
 var selectX = document.querySelector('.select-x')
 var selectO = document.querySelector('.select-o')
-var selectXhuman = document.querySelector('#humanx');
-var selectXcomputer = document.querySelector('#computerx');
-var selectOhuman = document.querySelector('#humano');
-var selectOcomputer = document.querySelector('#computero');
+var selectXhuman = document.querySelector('#humanx')
+var selectXcomputer = document.querySelector('#computerx')
+var selectOhuman = document.querySelector('#humano')
+var selectOcomputer = document.querySelector('#computero')
+var selectXchoice = document.getElementsByName('playerx')
+var selectOchoice = document.getElementsByName('playero')
 
 // grab static NodeList of elements representing squares on the game board
-var square = document.querySelectorAll('.square');
+var square = document.querySelectorAll('.square')
 
 // convert NodeList to an array
-var squares = [].slice.call(square);
+var squares = [].slice.call(square)
 
 // store callback fuction for each square for removing event listeners
-var squareCallback = [];
+var squareCallback = []
 
 // ***************
 // ** Functions **
@@ -73,12 +79,32 @@ function newGame(){
 	selectO.classList.add('hide')
 
 	// // disable pickers and new game button
-	// newGameBtn.createAttribute('disabled')
 	selectXhuman.setAttribute('disabled', 'disabled')
 	selectXcomputer.setAttribute('disabled', 'disabled')
 	selectOhuman.setAttribute('disabled', 'disabled')
 	selectOcomputer.setAttribute('disabled', 'disabled')
 
+	// determine players
+	if (selectXchoice[0].checked){
+		// player X is human
+		playerX = selectXchoice[0].value
+	} else {
+		// player X is a computer
+		playerX = selectXchoice[1].value
+	}
+
+	if (selectOchoice[0].checked){
+		// player O is human
+		playerO = selectOchoice[0].value
+	} else {
+		// player O is a computer
+		playerO = selectOchoice[1].value
+	}
+	console.log(playerX)
+	console.log(playerO)
+
+
+	// reset state of the game, initialize playerTurn
 	gameState = [0,0,0,0,0,0,0,0,0]
 	playerTurn = 1;
 
