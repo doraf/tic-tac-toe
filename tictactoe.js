@@ -209,14 +209,14 @@ function switchTurn(){
 function computerTurn(state, player){
 
 	// space to be played by the computer
-	var play = -999999999 * player
-	var playIndex
+	let play = -999999999 * player
+	let playIndex
 
 	// store board states of possible next moves
-	var moves = []
+	let moves = []
 
 	// store list of possible moves scores (1 means player x wins, -1 means player 0 wins)
-	var scores = []
+	let scores = []
 
 	// generate scores for the next move
 	scores = genMoves(gameState, playerTurn)
