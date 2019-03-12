@@ -3,40 +3,40 @@
 // ***************
 
 // for the sake of callculating a win, player X has a value of 1 and play O has a value of -1. Start with player X
-var playerTurn = 1 
+let playerTurn = 1 
 
 // determines which players are human or computer
-var playerX
-var playerO
+let playerX
+let playerO
 
 // each element corresponds to a place on the 3x3 game board, a value of 0 says that the square hasn't been played
-var gameState = []
+let gameState = []
 
 // the status bar shows the current state of the game
-var statusBar = document.querySelector('.status')
-var statusText = document.querySelector('.status h2')
-var board = document.querySelector('.board')
-var playerStatus = document.querySelector('.players')
+const statusBar = document.querySelector('.status')
+const statusText = document.querySelector('.status h2')
+const board = document.querySelector('.board')
+const playerStatus = document.querySelector('.players')
 
 // elements related to starting a new game
-var newGameBtn = document.querySelector('.new-game-button')
-var selectX = document.querySelector('.select-x')
-var selectO = document.querySelector('.select-o')
-var selectXhuman = document.querySelector('#humanx')
-var selectXcomputer = document.querySelector('#computerx')
-var selectOhuman = document.querySelector('#humano')
-var selectOcomputer = document.querySelector('#computero')
-var selectXchoice = document.getElementsByName('playerx')
-var selectOchoice = document.getElementsByName('playero')
+const newGameBtn = document.querySelector('.new-game-button')
+const selectX = document.querySelector('.select-x')
+const selectO = document.querySelector('.select-o')
+const selectXhuman = document.querySelector('#humanx')
+const selectXcomputer = document.querySelector('#computerx')
+const selectOhuman = document.querySelector('#humano')
+const selectOcomputer = document.querySelector('#computero')
+const selectXchoice = document.getElementsByName('playerx')
+const selectOchoice = document.getElementsByName('playero')
 
 // grab static NodeList of elements representing squares on the game board
-var square = document.querySelectorAll('.square')
+const square = document.querySelectorAll('.square')
 
 // convert NodeList to an array
-var squares = [].slice.call(square)
+const squares = [].slice.call(square)
 
 // store callback fuction for each square for removing event listeners
-var squareCallback = []
+let squareCallback = []
 
 // ***************
 // ** Functions **
@@ -224,9 +224,8 @@ function computerTurn(state, player){
 	// find an appropriate play for the next move
 	if (scores.every(function(score){return score == 0})){
 		// first computer move where all spaces have a score of 0
-		// pick a random 1st move since all moves are equivalent
+		// pick a random 1st move since all moves are equivalent for variety
 		playIndex = Math.floor(Math.random() * Math.floor(9))
-		console.log(playIndex)
 	} else if (player == 1){
 		// player X
 		scores.forEach(function(score, index){
@@ -252,13 +251,13 @@ function computerTurn(state, player){
 // generate a list of possible scores for each possible next move
 function genMoves(state, player){
 	// store board states of possible next moves
-	var moves = []
+	let moves = []
 
 	// store list of possible moves scores (1 means player x wins, -1 means player 0 wins)
-	var scores = []
+	let scores = []
 
 	// temporarily store a score value
-	var tempScore
+	let tempScore
 
 	// find possible next moves and generate scores array
 	for (let i = 0; i < state.length; i++){
@@ -327,8 +326,8 @@ function calcGame(testState){
 // Check to see if the most recent turn has won the game
 // lastPlayed is the index of the last played square in the game state array
 function calcWin(lastPlayed, testState){
-	var calcRow = Math.floor(lastPlayed / 3)
-	var calcCol = lastPlayed % 3
+	let calcRow = Math.floor(lastPlayed / 3)
+	let calcCol = lastPlayed % 3
 
 	// check both diagonals if the player has played a square with an even index
 	if (lastPlayed % 2 == 0){
