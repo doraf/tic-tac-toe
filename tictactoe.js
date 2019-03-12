@@ -222,7 +222,13 @@ function computerTurn(state, player){
 	scores = genMoves(gameState, playerTurn)
 
 	// find an appropriate play for the next move
-	if (player == 1){
+	if (scores.every(function(score){return score == 0})){
+		// first computer move where all spaces have a score of 0
+		// pick a random 1st move since all moves are equivalent
+		playIndex = Math.floor(Math.random() * Math.floor(9))
+		console.log(playIndex)
+	} else if (player == 1){
+		// player X
 		scores.forEach(function(score, index){
 			if (score > play && gameState[index] == 0){
 				play = score
@@ -230,6 +236,7 @@ function computerTurn(state, player){
 			}
 		})
 	} else {
+		// player O
 		scores.forEach(function(score, index){
 			if (score < play && gameState[index] == 0){
 				play = score
