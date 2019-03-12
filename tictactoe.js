@@ -45,8 +45,8 @@ var squareCallback = []
 // END GAME
 function endGame(){
 	// remove event listeners
-	for (var k = 0; k < squares.length; k++){
-		squares[k].removeEventListener('click', squareCallback[k], {once : true})
+	for (let i = 0; i < squares.length; i++){
+		squares[i].removeEventListener('click', squareCallback[i], {once : true})
 	}
 
 	// update DOM to trigger proper endgame state
@@ -193,10 +193,10 @@ function switchTurn(){
 	showStatus(playerTurn)
 
 	// update DOM to reflect new player
-	for (var j = 0; j < squares.length; j++){
-		if (squares[j].className != 'square played'){
-			squares[j].firstChild.classList.toggle('open-x')
-			squares[j].firstChild.classList.toggle('open-o')
+	for (let i = 0; i < squares.length; i++){
+		if (squares[i].className != 'square played'){
+			squares[i].firstChild.classList.toggle('open-x')
+			squares[i].firstChild.classList.toggle('open-o')
 		}
 	}
 

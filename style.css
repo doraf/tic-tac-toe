@@ -455,7 +455,7 @@ header{
 	transform: translateY(2px);
 }
 
-/* utility */
+/* utility classes*/
 .hide{
 	display: none;
 }
