@@ -173,6 +173,7 @@ header{
 	.player-pick{
 		font-size: 15px;
 		padding: 7px;
+		border-width: 2px;
 	}
 }
 
@@ -215,9 +216,10 @@ header{
 }
 @media (max-width: 850px){
 	.new-game-button{
-		margin: 10px 0;
+		margin: 10px 0 0 0;
 		padding: 7px 30px;
 		font-size: 15px;
+		border-width: 2px;
 	}
 }
 
@@ -322,8 +324,8 @@ header{
 
 @media (max-width: 850px){
 	.player-x{
-		width: 24vw;
-		height: 24vw;
+		width: 20vw;
+		height: 20vw;
 	}
 }
 
@@ -354,9 +356,9 @@ header{
 
 @media (max-width: 850px){
 	.player-x:before, .player-x:after{
-		left: 9.56vw;
-		width: 5.6vw;
-		height: 24vw;
+		left: 7.73vw;
+		width: 4.55vw;
+		height: 20vw;
 	}
 }
 
@@ -394,8 +396,8 @@ header{
 
 @media (max-width: 850px){
 	.open-x{
-		width: 24vw;
-		height: 24vw;
+		width: 20vw;
+		height: 20vw;
 	}
 }
 
@@ -424,9 +426,9 @@ header{
 
 @media (max-width: 850px){
 	.open-x:before, .open-x:after{
-		left: 9.56vw;
-		width: 5.6vw;
-		height: 24vw;
+		left: 7.73vw;
+		width: 4.55vw;
+		height: 20vw;
 	}
 }
 
@@ -468,10 +470,10 @@ header{
 
 @media (max-width: 850px){
 	.player-o{
-		height: 24vw;
-		width: 24vw;
-		border-radius: 12vw;
-		border-width: 5.06vw; 
+		height: 20vw;
+		width: 20vw;
+		border-radius: 10vw;
+		border-width: 4.55vw; 
 	}
 }
 
