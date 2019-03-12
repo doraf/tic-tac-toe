@@ -44,6 +44,7 @@ var squareCallback = []
 
 // END GAME
 function endGame(){
+	// remove event listeners
 	for (var k = 0; k < squares.length; k++){
 		squares[k].removeEventListener('click', squareCallback[k], {once : true})
 	}
@@ -100,9 +101,6 @@ function newGame(){
 		// player O is a computer
 		playerO = selectOchoice[1].value
 	}
-	console.log(playerX)
-	console.log(playerO)
-
 
 	// reset state of the game, initialize playerTurn
 	gameState = [0,0,0,0,0,0,0,0,0]
@@ -135,8 +133,9 @@ function newGame(){
 	// init status bar
 	showStatus(playerTurn)
 
-	// hide new game button
-	// hide player pickers
+	if (playerX == 'computer'){
+		computerTurn(gameState, playerTurn)
+	}
 }
 
 // return a function to select a square on behalf of the player
@@ -201,7 +200,7 @@ function switchTurn(){
 		}
 	}
 
-	if (playerTurn == -1){
+	if ((playerTurn == 1 && playerX == 'computer') || (playerTurn == -1 && playerO == 'computer')){
 		computerTurn(gameState, playerTurn)
 	}
 }
@@ -210,7 +209,7 @@ function switchTurn(){
 function computerTurn(state, player){
 
 	// space to be played by the computer
-	var play = 999999999
+	var play = -999999999 * player
 	var playIndex
 
 	// store board states of possible next moves
@@ -223,12 +222,21 @@ function computerTurn(state, player){
 	scores = genMoves(gameState, playerTurn)
 
 	// find an appropriate play for the next move
-	scores.forEach(function(score, index){
-		if (score < play && gameState[index] == 0){
-			play = score
-			playIndex = index
-		}
-	})
+	if (player == 1){
+		scores.forEach(function(score, index){
+			if (score > play && gameState[index] == 0){
+				play = score
+				playIndex = index
+			}
+		})
+	} else {
+		scores.forEach(function(score, index){
+			if (score < play && gameState[index] == 0){
+				play = score
+				playIndex = index
+			}
+		})
+	}
 
 	// play square
 	setTimeout(() => {squares[playIndex].click()}, 500)
@@ -257,7 +265,7 @@ function genMoves(state, player){
 			// determine if the game contains a win
 			tempScore = calcWin(i, moves)
 
-			if (tempScore == 0 && moves.includes(0)){
+			if ((tempScore == 0) && moves.includes(0)){
 				// recurse through the minimax function on open spaces that don't end the game
 				scores.push(findMiniMax(genMoves(moves, player*-1), player*-1))
 			}	else {
@@ -279,7 +287,7 @@ function findMiniMax(scores, player){
 	if (player == 1){
 		//  return highest score
 		scores.forEach(function(score){
-			if (score > minimax && score != null){
+			if ((score > minimax) && (score != null)){
 				minimax = score
 			}
 		})
@@ -287,7 +295,7 @@ function findMiniMax(scores, player){
 	} else {
 		// return lowest score
 		scores.forEach(function(score){
-			if (score < minimax && score != null){
+			if ((score < minimax) && (score != null)){
 				minimax = score
 			}
 		})
