@@ -205,8 +205,9 @@ header{
 
 /* New Game Button */
 .new-game-button{
-	border: 3px solid #5d6577;
-	background-color: #7b8396;
+	border: none;
+	background-color: hotpink;
+	/*color: #2b303b;*/
 	color: white;
 	font-size: 16px;
 	padding: 10px 50px;
@@ -223,12 +224,12 @@ header{
 }
 
 .new-game-button:hover{
-	background-color: #5d6577;
+	background-color: #bf417f;
 }
 
 .new-game-button:active{
-	background-color: #2b303b;
-	border-color: #2b303b;
+	/*background-color: #ad3771;*/
+	border-color: #ad3771;
 	transform: translateY(2px);
 }
 

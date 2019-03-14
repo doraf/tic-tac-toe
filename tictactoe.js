@@ -38,6 +38,9 @@ const squares = [].slice.call(square)
 // store callback fuction for each square for removing event listeners
 let squareCallback = []
 
+// making a custom event
+var event = new CustomEvent("computerPlaySquare")
+
 // ***************
 // ** Functions **
 // ***************
@@ -47,6 +50,7 @@ function endGame(){
 	// remove event listeners
 	for (let i = 0; i < squares.length; i++){
 		squares[i].removeEventListener('click', squareCallback[i], {once : true})
+		squares[i].removeEventListener('computerPlaySquare', squareCallback[i], {once : true})
 	}
 
 	// update DOM to trigger proper endgame state
@@ -127,6 +131,7 @@ function newGame(){
 	// add event listeners
 	for (let i = 0; i < squares.length; i++){
 		squareCallback[i] = playSquare(i)
+		// squares[i].addEventListener('computerPlaySquare', squareCallback[i], {once : true})
 		squares[i].addEventListener('click', squareCallback[i], {once : true})
 	}
 
@@ -182,6 +187,13 @@ function playSquare(playNum){
 				showStatus(0)
 				setTimeout(() => {initGame()}, 500)
 			}
+
+			// remove event listers if human turn
+			// if ((playerTurn == 1 && playerX == 'human') || (playerTurn == -1 && playerO == 'human')){
+				// for (let i = 0; i < squares.length; i++){
+				// 	squares[i].removeEventListener('click', squareCallback[i], {once : true})
+				// }
+			// }
 		}
 }
 
@@ -201,6 +213,7 @@ function switchTurn(){
 	}
 
 	if ((playerTurn == 1 && playerX == 'computer') || (playerTurn == -1 && playerO == 'computer')){
+		// play computer turn
 		computerTurn(gameState, playerTurn)
 	}
 }
@@ -415,6 +428,15 @@ function showStatusWin(turn){
 			playerStatus.classList.remove('x')
 			playerStatus.classList.add('o')
 		}
+}
+
+// returns if player X or O is human or computer
+function determinePlayer(player){
+	if (player == 1){
+		return playerX
+	} else {
+		return playerO
+	}
 }
 
 // ****************
