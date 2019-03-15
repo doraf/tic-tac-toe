@@ -300,7 +300,7 @@ header{
 
 /* squares */
 :not(.over)>.square:not(.played){
-	cursor: hand;
+	/*cursor: hand;*/
 }
 
 /* style X player */
@@ -373,6 +373,10 @@ header{
 .o-won .player-x:before, .o-won .player-x:after,
 .draw .player-x:before, .draw .player-x:after{
 	background-color: #ccc;
+}
+
+:not(.over)>.square:not(.played):hover{
+	cursor: hand;
 }
 
 /* open X */

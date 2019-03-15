@@ -149,7 +149,6 @@ function newGame(){
 function playSquare(playNum){
 		return function(event){
 
-		// console.log(validPlay(event.type, determinePlayer(playerTurn)))
 		if (validPlay(event.type, determinePlayer(playerTurn))){
 			// update game state array to show that the space in play
 			gameState[playNum] = playerTurn;
@@ -199,7 +198,6 @@ function playSquare(playNum){
 
 // validate that the move is valid
 function validPlay(type, player){
-	console.log(type)
 	if ((type == 'click') && (player == 'human')){
 		return true
 	} else if ((type == 'computerPlaySquare') && (player == 'computer')){
@@ -230,8 +228,13 @@ function switchTurn(){
 		// update DOM to reflect new player
 		for (let i = 0; i < squares.length; i++){
 			if (squares[i].className != 'square played'){
-				squares[i].firstChild.classList.toggle('open-x')
-				squares[i].firstChild.classList.toggle('open-o')
+				if (playerTurn == 1){
+					squares[i].firstChild.classList.add('open-x')
+					squares[i].firstChild.classList.remove('open-o')
+				} else {
+					squares[i].firstChild.classList.remove('open-x')
+					squares[i].firstChild.classList.add('open-o')
+				}
 			}
 		}
 	}
@@ -345,7 +348,6 @@ function findMiniMax(scores, player){
 
 // check for a win on the entire game, without knowing the previous move
 function calcGame(testState){
-	// console.log(checkDiagonal(testState) + ', ' + checkRow(1, testState) + ', ' + checkRow(2, testState) + ', ' + checkRow(3, testState) + ', ' + checkColumn(1, testState) + ', ' + checkColumn(2, testState) + ', ' + checkColumn(3, testState))
 	return (checkDiagonal(testState) || 
 		checkRow(1, testState) ||
 		checkRow(2, testState) ||
