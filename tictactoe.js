@@ -149,7 +149,8 @@ function newGame(){
 function playSquare(playNum){
 		return function(event){
 
-		if (validPlay(event.type, determinePlayer(playerTurn))){
+		if (validPlay(event.type, determinePlayer(playerTurn), playNum)){
+
 			// update game state array to show that the space in play
 			gameState[playNum] = playerTurn;
 
@@ -197,10 +198,10 @@ function playSquare(playNum){
 }
 
 // validate that the move is valid
-function validPlay(type, player){
-	if ((type == 'click') && (player == 'human')){
+function validPlay(type, player, num){
+	if ((type == 'click') && (player == 'human') && (gameState[num] == 0)){
 		return true
-	} else if ((type == 'computerPlaySquare') && (player == 'computer')){
+	} else if ((type == 'computerPlaySquare') && (player == 'computer') && (gameState[num] == 0)){
 		return true
 	} else {
 		return false
