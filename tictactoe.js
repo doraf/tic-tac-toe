@@ -39,7 +39,7 @@ const squares = [].slice.call(square)
 let squareCallback = []
 
 // making a custom event
-var event = new CustomEvent("computerPlaySquare")
+var computerPlay = new CustomEvent('computerPlaySquare')
 
 // ***************
 // ** Functions **
@@ -120,7 +120,9 @@ function newGame(){
 	squares.forEach(function(square){
 		square.classList.remove('played')
 		square.classList.remove('played-x')
-		square.firstChild.classList.add('open-x')
+		if (playerX == 'human'){
+			square.firstChild.classList.add('open-x')
+		}
 		square.firstChild.classList.remove('player-x')
 
 		square.classList.remove('played-o')
@@ -131,7 +133,7 @@ function newGame(){
 	// add event listeners
 	for (let i = 0; i < squares.length; i++){
 		squareCallback[i] = playSquare(i)
-		// squares[i].addEventListener('computerPlaySquare', squareCallback[i], {once : true})
+		squares[i].addEventListener('computerPlaySquare', squareCallback[i], {once : true})
 		squares[i].addEventListener('click', squareCallback[i], {once : true})
 	}
 
@@ -146,6 +148,9 @@ function newGame(){
 // return a function to select a square on behalf of the player
 function playSquare(playNum){
 		return function(event){
+
+		// console.log(validPlay(event.type, determinePlayer(playerTurn)))
+		if (validPlay(event.type, determinePlayer(playerTurn))){
 			// update game state array to show that the space in play
 			gameState[playNum] = playerTurn;
 
@@ -185,16 +190,23 @@ function playSquare(playNum){
 				// game is a draw
 				board.classList.add('draw')
 				showStatus(0)
+				endGame()
 				setTimeout(() => {initGame()}, 500)
 			}
+		}	
+	}
+}
 
-			// remove event listers if human turn
-			// if ((playerTurn == 1 && playerX == 'human') || (playerTurn == -1 && playerO == 'human')){
-				// for (let i = 0; i < squares.length; i++){
-				// 	squares[i].removeEventListener('click', squareCallback[i], {once : true})
-				// }
-			// }
-		}
+// validate that the move is valid
+function validPlay(type, player){
+	console.log(type)
+	if ((type == 'click') && (player == 'human')){
+		return true
+	} else if ((type == 'computerPlaySquare') && (player == 'computer')){
+		return true
+	} else {
+		return false
+	}
 }
 
 // update game state to for next player
@@ -204,17 +216,24 @@ function switchTurn(){
 	playerTurn *= -1;
 	showStatus(playerTurn)
 
-	// update DOM to reflect new player
-	for (let i = 0; i < squares.length; i++){
-		if (squares[i].className != 'square played'){
-			squares[i].firstChild.classList.toggle('open-x')
-			squares[i].firstChild.classList.toggle('open-o')
+	if (determinePlayer(playerTurn) == 'computer'){
+		// update DOM to reflect new player
+		for (let i = 0; i < squares.length; i++){
+			if (squares[i].className != 'square played'){
+				squares[i].firstChild.classList.remove('open-x')
+				squares[i].firstChild.classList.remove('open-o')
+			}
 		}
-	}
-
-	if ((playerTurn == 1 && playerX == 'computer') || (playerTurn == -1 && playerO == 'computer')){
 		// play computer turn
 		computerTurn(gameState, playerTurn)
+	} else {
+		// update DOM to reflect new player
+		for (let i = 0; i < squares.length; i++){
+			if (squares[i].className != 'square played'){
+				squares[i].firstChild.classList.toggle('open-x')
+				squares[i].firstChild.classList.toggle('open-o')
+			}
+		}
 	}
 }
 
@@ -258,7 +277,7 @@ function computerTurn(state, player){
 	}
 
 	// play square
-	setTimeout(() => {squares[playIndex].click()}, 500)
+	setTimeout(() => {squares[playIndex].dispatchEvent(computerPlay)}, 500)
 }
 
 // generate a list of possible scores for each possible next move
