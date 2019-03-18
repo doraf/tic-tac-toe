@@ -77,6 +77,10 @@ function initGame(){
 
 // Clicking a new game button
 function newGame(){
+	// show squares if new board
+	for (let i = 0; i < squares.length; i++){
+		squares[i].classList.remove('hide')
+	}
 
 	// hide pickers and new game button
 	newGameBtn.classList.add('hide')
@@ -156,7 +160,6 @@ function playSquare(playNum){
 
 			// update DOM to show X or O on the game board
 			this.classList.add('played')
-
 			if (playerTurn == 1){
 				// show X
 				this.classList.add('played-x')

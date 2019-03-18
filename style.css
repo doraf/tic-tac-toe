@@ -300,7 +300,7 @@ header{
 
 /* squares */
 :not(.over)>.square:not(.played){
-	/*cursor: hand;*/
+	cursor: hand;
 }
 
 /* style X player */
@@ -376,7 +376,7 @@ header{
 }
 
 :not(.over)>.square:not(.played):hover{
-	cursor: hand;
+	/*cursor: hand;*/
 }
 
 /* open X */
