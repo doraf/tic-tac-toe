@@ -47,6 +47,9 @@ var computerPlay = new CustomEvent('computerPlaySquare')
 
 // END GAME
 function endGame(){
+	// remove class to hide cursor
+	board.classList.remove('computer')
+
 	// remove event listeners
 	for (let i = 0; i < squares.length; i++){
 		squares[i].removeEventListener('click', squareCallback[i], {once : true})
@@ -145,6 +148,11 @@ function newGame(){
 	showStatus(playerTurn)
 
 	if (playerX == 'computer'){
+		if (playerO == 'computer'){
+			// hide cursors if only computer is playing
+			board.classList.add('computer')
+		}
+		// play as computer
 		computerTurn(gameState, playerTurn)
 	}
 }

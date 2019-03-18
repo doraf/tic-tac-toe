@@ -299,7 +299,7 @@ header{
 }
 
 /* squares */
-:not(.over)>.square:not(.played){
+.board:not(.computer):not(.over)>.square:not(.played){
 	cursor: hand;
 }
 
@@ -373,10 +373,6 @@ header{
 .o-won .player-x:before, .o-won .player-x:after,
 .draw .player-x:before, .draw .player-x:after{
 	background-color: #ccc;
-}
-
-:not(.over)>.square:not(.played):hover{
-	/*cursor: hand;*/
 }
 
 /* open X */
