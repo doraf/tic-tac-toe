@@ -19,7 +19,7 @@ html, body{
 /* header */
 header{
 	color: #fff;
-	background-color: #7b8396;
+	background-color: #1e2535;
 	text-align: center;
 	flex-basis: 400px;
 	flex-grow: 0;
@@ -35,7 +35,8 @@ header{
 }
 
 .title{
-	background-color: #2b303b;
+	color: #555d6b;
+	background-color: #0c0f14;
 	margin: 0;
 	padding: 20px 0;
 }
@@ -48,8 +49,8 @@ header{
 
 .status{
 	padding: 2px;
-	background-color: #4e5566;
-	color: rgba(255, 255, 255, .9);
+	background-color: #141923;
+	color: rgba(255, 255, 255, .8);
 }
 
 .status h2{
@@ -64,11 +65,11 @@ header{
 }
 
 .status.x{
-	background-color: #ff6464;
+	background-color: #fc2b67;
 }
 
 .status.o{
-	background-color: #99ce28;
+	background-color: #6eaa0f;
 }
 
 /* Player Indicators */
@@ -86,11 +87,11 @@ header{
 
 .players.x .player-one-x:before, 
 .players.x .player-one-x:after{
-	background-color: #ff6464;
+	background-color: #fc2b67;
 }
 
 .players.o .player-two-o{
-	border-color: #99ce28;
+	border-color: #6eaa0f;
 }
 
 .player-one-x{
@@ -110,7 +111,7 @@ header{
 	top: 0;
 	display: block;
 	content: '';
-	background-color: #2b303b;
+	background-color: #555d6b;
 	transition: background-color .2s ease-in;
 	left: 32px;
 	width: 25px;
@@ -136,7 +137,7 @@ header{
 	width: 100px;
 	height: 100px;
 	box-sizing: border-box;
-	border: 25px solid #2b303b;
+	border: 25px solid #555d6b;
 	transition: border-color .2s ease-in;
 	border-radius: 50px;
 }
@@ -159,6 +160,7 @@ header{
 .switch{
 	display: inline-flex;
 	margin-top: 10px;
+	box-shadow: 0 8px 8px -8px #0c0f14;
 }
 
 .player-pick{
@@ -166,9 +168,9 @@ header{
 	margin: 0;
 	padding: 8px 10px;
 	font-size: 14px;
-	color: white;
-	box-sizing: border-box;
-	background-color: #5d6577;
+	color: #93989e;
+	/*box-sizing: border-box;*/
+	background-color: #141923;
 }
 @media (max-width: 850px){
 	.player-pick{
@@ -183,12 +185,12 @@ header{
 }
 
 .select-x > input:checked + .player-pick{
-	background-color: #ff6464;
+	background-color: #fc2b67;
 	color: black;
 }
 
 .select-o > input:checked + .player-pick{
-	background-color: #99ce28;
+	background-color: #6eaa0f;
 	color: black;
 }
 
@@ -198,7 +200,7 @@ header{
 }
 
 .player-pick:hover{
-	background-color: #4e5566;
+	background-color: #141923;
 }
 
 .player-pick:last-of-type{
@@ -209,13 +211,13 @@ header{
 /* New Game Button */
 .new-game-button{
 	border: none;
-	background-color: #4e5566;
-	/*color: #2b303b;*/
+	background-color: #555d6b;
 	color: white;
 	font-size: 16px;
 	padding: 10px 50px;
 	border-radius: 8px;
 	margin: 30px 0;
+	box-shadow: 0 8px 8px -8px #0c0f14;
 }
 @media (max-width: 850px){
 	.new-game-button{
@@ -227,7 +229,7 @@ header{
 }
 
 .new-game-button:hover{
-	background-color: #2b303b;
+	background-color: #0c0f14;
 }
 
 .new-game-button:active{
@@ -273,31 +275,31 @@ header{
 
 @media (min-width: 2240px){
 	.square:nth-of-type(3n+1), .square:nth-of-type(3n+2){
-		border-right: solid 39px #ccc;
+		border-right: solid 39px #a1a8b2;
 	}
 
 	.square:nth-child(-n+6){
-		border-bottom: solid 39px #ccc;
+		border-bottom: solid 39px #a1a8b2;
 	}
 }
 
 @media (max-width: 2239px ) and (min-width: 851px){
 	.square:nth-of-type(3n+1), .square:nth-of-type(3n+2){
-		border-right: solid 1.75vw #ccc;
+		border-right: solid 1.75vw #a1a8b2;
 	}
 
 	.square:nth-child(-n+6){
-		border-bottom: solid 1.75vw #ccc;
+		border-bottom: solid 1.75vw #a1a8b2;
 	}
 }
 
 @media (max-width: 850px){
 	.square:nth-of-type(3n+1), .square:nth-of-type(3n+2){
-		border-right: solid 3.93vw #ccc;
+		border-right: solid 3.93vw #a1a8b2;
 	}
 
 	.square:nth-child(-n+6){
-		border-bottom: solid 3.93vw #ccc;
+		border-bottom: solid 3.93vw #a1a8b2;
 	}
 }
 
@@ -337,7 +339,7 @@ header{
 	top: 0;
 	display: block;
 	content: '';
-	background-color: #ff6464;
+	background-color: #fc2b67;
 	transition: background-color .2s ease-in;
 }
 
@@ -375,7 +377,7 @@ header{
 
 .o-won .player-x:before, .o-won .player-x:after,
 .draw .player-x:before, .draw .player-x:after{
-	background-color: #ccc;
+	background-color: #a1a8b2;
 }
 
 /* open X */
@@ -451,7 +453,7 @@ header{
 /* style O player*/
 .player-o{
 	box-sizing: border-box;
-	border: 2.5vw solid #99ce28;
+	border: 2.5vw solid #6eaa0f;
 	transition: border-color .2s ease-in;
 }
 @media (min-width: 2240px){
@@ -482,7 +484,7 @@ header{
 
 .x-won .player-o, 
 .draw .player-o{
-	border-color: #ccc;
+	border-color: #a1a8b2;
 }
 /* open O*/
 
