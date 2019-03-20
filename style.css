@@ -11,7 +11,7 @@ html, body{
 	display: flex;
 	flex-direction: row;
 }
-@media (max-width: 850px){
+@media (max-width: 850px) and (orientation: portrait){
 	.play-space{
 		flex-direction: column;
 	}
@@ -27,11 +27,16 @@ header{
 	flex-shrink: 0;
 	box-shadow: 1px 0 5px #222;
 }
-@media (max-width: 850px){
+@media (max-width: 850px) and (orientation: portrait){
 	header{
-		/*background-color: white;*/
 		flex-basis: auto;
 		padding-bottom: 15px;
+	}
+}
+
+@media (max-width: 850px) and (orientation: landscape){
+	header{
+		flex-basis: 210px;
 	}
 }
 
@@ -52,6 +57,11 @@ header{
 	padding: 2px;
 	background-color: #141923;
 	color: rgba(255, 255, 255, .8);
+}
+@media (max-width: 575px) and (orientation: landscape){
+	.status{
+		display: none;
+	}
 }
 
 .status h2{
@@ -80,9 +90,16 @@ header{
 	justify-content: space-around;
 	margin: 50px 0 0;
 }
-@media (max-width: 850px){
+@media (max-width: 850px) and (orientation: portrait){
 	.players{
 		margin: 15px 0 0;
+	}
+}
+
+@media (max-width: 850px) and (orientation: landscape){
+	.players{
+		margin: 20px 0;
+		flex-direction: column;
 	}
 }
 
@@ -157,6 +174,11 @@ header{
 	flex-direction: column;
 	align-items: center;
 }
+@media (max-width: 850px) and (orientation: landscape){
+	.group-pick{
+		margin: 0 0 10px 0;
+	}
+}
 
 .switch{
 	display: inline-flex;
@@ -170,7 +192,6 @@ header{
 	padding: 8px 10px;
 	font-size: 14px;
 	color: #93989e;
-	/*box-sizing: border-box;*/
 	background-color: #141923;
 }
 @media (max-width: 850px){
@@ -228,13 +249,17 @@ header{
 		border-width: 2px;
 	}
 }
+@media (max-width: 850px) and (orientation: landscape){
+	.new-game-button{
+		margin-top: 0;
+	}
+}
 
 .new-game-button:hover{
 	background-color: #0c0f14;
 }
 
 .new-game-button:active{
-	/*background-color: #ad3771;*/
 	border-color: #ad3771;
 	transform: translateY(2px);
 }
@@ -242,7 +267,6 @@ header{
 /* Tic Tac Toe Board layout */
 .gameboard{
 	flex-grow: 2;
-	/*padding: 50px 0;*/
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
@@ -257,8 +281,7 @@ header{
 	display: flex;
 	flex-wrap: wrap;
 }
-
-@media (max-width: 850px){
+@media (max-width: 850px) and (orientation: portrait){
 	.board{
 		height: 90vw;
 		width: 90vw;
@@ -294,13 +317,23 @@ header{
 	}
 }
 
-@media (max-width: 850px){
+@media (max-width: 850px) and (orientation: portrait){
 	.square:nth-of-type(3n+1), .square:nth-of-type(3n+2){
 		border-right: solid 3.93vw #a1a8b2;
 	}
 
 	.square:nth-child(-n+6){
 		border-bottom: solid 3.93vw #a1a8b2;
+	}
+}
+
+@media (max-width: 850px) and (orientation: landscape){
+	.square:nth-of-type(3n+1), .square:nth-of-type(3n+2){
+		border-right: solid 1.75vw #a1a8b2;
+	}
+
+	.square:nth-child(-n+6){
+		border-bottom: solid 1.75vw #a1a8b2;
 	}
 }
 
@@ -328,10 +361,17 @@ header{
 	}
 }
 
-@media (max-width: 850px){
+@media (max-width: 850px) and (orientation: portrait){
 	.player-x{
 		width: 20vw;
 		height: 20vw;
+	}
+}
+
+@media (max-width: 850px) and (orientation: landscape){
+	.player-x{
+		width: 11vw;
+		height: 11vw;
 	}
 }
 
@@ -360,11 +400,19 @@ header{
 	}
 }
 
-@media (max-width: 850px){
+@media (max-width: 850px) and (orientation: portrait){
 	.player-x:before, .player-x:after{
 		left: 7.73vw;
 		width: 4.55vw;
 		height: 20vw;
+	}
+}
+
+@media (max-width: 850px) and (orientation: landscape){
+	.player-x:before, .player-x:after{
+		left: 4.25vw;
+		width: 2.5vw;
+		height: 11vw;
 	}
 }
 
@@ -400,10 +448,17 @@ header{
 	}
 }
 
-@media (max-width: 850px){
+@media (max-width: 850px) and (orientation: portrait){
 	.open-x{
 		width: 20vw;
 		height: 20vw;
+	}
+}
+
+@media (max-width: 850px) and (orientation: landscape){
+	.open-x{
+		width: 11vw;
+		height: 11vw;
 	}
 }
 
@@ -430,11 +485,19 @@ header{
 	}
 }
 
-@media (max-width: 850px){
+@media (max-width: 850px) and (orientation: portrait){
 	.open-x:before, .open-x:after{
 		left: 7.73vw;
 		width: 4.55vw;
 		height: 20vw;
+	}
+}
+
+@media (max-width: 850px) and (orientation: landscape){
+	.open-x:before, .open-x:after{
+		left: 4.25vw;
+		width: 2.5vw;
+		height: 11vw;
 	}
 }
 
@@ -474,12 +537,20 @@ header{
 	}
 }
 
-@media (max-width: 850px){
+@media (max-width: 850px) and (orientation: portrait){
 	.player-o{
 		height: 20vw;
 		width: 20vw;
 		border-radius: 10vw;
 		border-width: 4.55vw; 
+	}
+}
+
+@media (max-width: 850px) and (orientation: landscape){
+	.player-o{
+		height: 11vw;
+		width: 11vw;
+		border-radius: 5.5vw;
 	}
 }
 
